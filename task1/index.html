@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Intern Task</title>
+    <style>
+        body {
+            background-color: #0f1321;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #1e2130;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        img {
+            border-radius: 50%;
+            margin: 20px 0;
+            max-width: 150px;
+        }
+
+        h1, p {
+            margin: 10px 0;
+        }
+
+        a {
+            color: #7aa5d3;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-testid="slackUserName">Goodness Kolapo</h1>
+        <img src="slack-profile-picture-url.jpg" alt="Goodness Kolapo" data-testid="slackDisplayImage">
+        <p data-testid="currentDayOfTheWeek"></p>
+        <p data-testid="currentUTCTime"></p>
+        <p data-testid="myTrack">Frontend</p>
+        <a href="https://github.com/goodness5/hngx" data-testid="githubURL">GitHub Repository</a>
+    </div>
+
+    <script>
+        function updateDateAndTime() {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const currentDate = new Date();
+
+            const dayElement = document.querySelector('[data-testid="currentDayOfTheWeek"]');
+            dayElement.textContent = days[currentDate.getUTCDay()];
+
+            const timeElement = document.querySelector('[data-testid="currentUTCTime"]');
+            const hours = String(currentDate.getUTCHours()).padStart(2, '0');
+            const minutes = String(currentDate.getUTCMinutes()).padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes} UTC`;
+
+            setTimeout(updateDateAndTime, 1000);
+        }
+
+        updateDateAndTime();
+    </script>
+</body>
+</html>
