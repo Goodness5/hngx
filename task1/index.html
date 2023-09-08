@@ -79,9 +79,14 @@
             const timeElement = document.querySelector('[data-testid="currentUTCTime"]');
             const hours = String(currentDate.getUTCHours()).padStart(2, '0');
             const minutes = String(currentDate.getUTCMinutes()).padStart(2, '0');
-            timeElement.textContent = `${hours}:${minutes} UTC`;
+            const seconds = String(currentDate.getUTCSeconds()).padStart(2, '0');
+            const milliseconds = String(currentDate.getUTCMilliseconds()).padStart(3, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}.${milliseconds} UTC`;
 
-            setTimeout(updateDateAndTime, 1000);
+            const trackElement = document.querySelector('[data-testid="myTrack"]');
+            trackElement.textContent = 'Frontend';
+
+            setTimeout(updateDateAndTime, 1); // Update every millisecond
         }
 
         updateDateAndTime();
