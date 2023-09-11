@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import MovieCard from "./components/moviecard";
-import ReactLoading from "react-loading";
+import Image from "next/image";
+import Sidebar from "./components/mobilenav";
 import FeaturedMovie from "./components/featuredmovie";
 import Slider from "./components/carousel";
 
@@ -10,6 +10,8 @@ const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('Featured Movie');
+  const [topTen, setTopten] = useState([]);
+  const [sidebar, setsidebar] = useState(false)
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -37,22 +39,7 @@ const HomePage = () => {
     fetchTopMovies();
   }, []);
 
-  useEffect(() => {
-    // Fetch trending movies from TMDB API using environment variable
-    const fetchTrendingMovies = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`
-        );
-        const data = await response.json();
-        setTrendingMovies(data.results);
-      } catch (error) {
-        console.error("Error fetching trending movies:", error);
-      }
-    };
-
-    fetchTrendingMovies();
-  }, []);
+ 
 
   const handlesearch = async (query) => {
     setLoading(true); // Set loading to true when starting the search
@@ -66,19 +53,47 @@ const HomePage = () => {
     } catch (error) {
       console.error("Error fetching search results:", error);
     } finally {
-      setLoading(false); // Set loading back to false after the search is complete
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 8000);
+  
+      return () => clearTimeout(timer); // Clean up timer on component unmount
     }
   };
   
+  useEffect(() => {
+    topMovies?
+    setTopten(topMovies.slice(0, 10))
+  : ''
+
+  }, [topMovies])
+
+  const showsidebar = (value) =>{
+    setsidebar(value)
+  }
+  
 
   return (
-    <div className="flex flex-col">
-      <div className="w-full  flex">
-        <Slider movies={trendingMovies} handlesearch={handlesearch} />
+    <div className="flex flex-col w-full">
+      {sidebar && <Sidebar handlesearch={handlesearch} showsidebar={showsidebar} />}
+      <div className="w-full  flex h-fit mb-3">
+        <Slider handlesearch={handlesearch} showsidebar={showsidebar} />
       </div>
 
-      <div className="w-full flex">
-        <FeaturedMovie movies={topMovies} loading={loading} text={text} />
+      <div className="w-full flex flex-col">
+      <div className="flex w-full justify-between mb-4">
+        <h1 className="font-[700] text-[36px] leading-[48.6px]">
+          {text}
+        </h1>
+
+        <div className="flex justify-between items-center w-fit">
+          <a href="/movies" className="text-[#BE123C]">
+            see more
+          </a>
+          <Image src="/arrowright.svg" alt="arrow" width={20} height={20} />
+        </div>
+      </div>
+        <FeaturedMovie movies={topTen} loading={loading} text={text} />
       </div>
     </div>
   );

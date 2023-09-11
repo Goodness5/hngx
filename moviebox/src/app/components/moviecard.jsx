@@ -1,8 +1,19 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import ReactLoading from "react-loading";
+import CustomLoading from "./loading";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, loading }) => {
   const [details, setDetails] = useState(null);
+
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const [imdbRating, setImdbRating] = useState(null);
+  const [rottenTomatoesRating, setRottenTomatoesRating] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -12,6 +23,20 @@ const MovieCard = ({ movie }) => {
         );
         const data = await response.json();
         setDetails(data);
+
+        // Fetch additional details from OMDB API
+        const omdbResponse = await fetch(
+          `https://www.omdbapi.com/?t=${encodeURIComponent(movie.title)}&apikey=${process.env.OMDB_API_KEY}`
+        );
+        const omdbData = await omdbResponse.json();
+
+        if (omdbData.imdbRating) {
+          setImdbRating(parseFloat(omdbData.imdbRating) * 10);
+        }
+
+        if (omdbData.Ratings && omdbData.Ratings.length > 1 && omdbData.Ratings[1].Value) {
+          setRottenTomatoesRating(omdbData.Ratings[1].Value);
+        }
       } catch (error) {
         console.error(`Error fetching details for ${movie.title}:`, error);
       }
@@ -23,62 +48,93 @@ const MovieCard = ({ movie }) => {
   const year = new Date(movie.release_date).getFullYear();
 
   return (
-    <div>
-      {details && (
-        <div data-testid="movie-card" className="gap-2 flex flex-col">
-          <Image
-            data-testid="movie-poster"
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={`${movie.title} Poster`}
-            width={250}
-            height={370}
-          />
-          <div className="flex text-[#9CA3AF] gap-2">
-            <p>
-              {details.production_countries
-                .map((country) => country.iso_3166_1)
-                .join(", ")}
-              ,
+    <div className=" w-full">
+      {loading ? (
+        <CustomLoading />
+      ) : (
+        details && (
+          <div data-testid="movie-card" className="gap-2 flex flex-col">
+            {imageError ? (
+              <Image
+                src="/noimage.svg"
+                alt={`${movie.title}`}
+                width={80}
+                height={100}
+                className="m-auto flex w-full"
+              />
+            ) : (
+              <Image
+                data-testid="movie-poster"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={`${movie.title}`}
+                width={80}
+                height={100}
+                className="m-auto flex w-full"
+                onError={handleImageError}
+              />
+            )}
+
+            <div className="flex text-[#9CA3AF] gap-2">
+              <p>
+                {details.production_countries &&
+                details.production_countries.length > 0
+                  ? details.production_countries
+                      .map((country) => country.iso_3166_1)
+                      .join(", ")
+                  : "N/A"}
+              </p>
+
+              <p data-testid="movie-release-date">{year}</p>
+            </div>
+
+            <h2
+              data-testid="movie-title"
+              className="text-[#111827] font-[700] text-[18px]"
+            >
+              {movie.title}
+            </h2>
+
+            <div className="w-full flex justify-between">
+              <div className="flex w-full gap-2">
+                <Image
+                  src="/imdblogo.svg"
+                  alt="imdblogo"
+                  width={50}
+                  height={20}
+                />
+
+                <p>{imdbRating + '/100' || "N/A"}</p>
+              </div>
+
+              <div className="flex w-full gap-2 justify-end">
+                <Image
+                  src={
+                    loading ? (
+                      <ReactLoading
+                        type={"spinningBubbles"}
+                        color={"#BE123C"}
+                        height={100}
+                        width={100}
+                        className="m-auto flex w-full"
+                      />
+                    ) : (
+                      "/rottentomatoes.svg"
+                    )
+                  }
+                  alt="imdblogo"
+                  width={20}
+                  height={20}
+                />
+
+                <p>{rottenTomatoesRating + '%' || "N/A"}</p>
+              </div>
+            </div>
+
+            <p className="text-[#9CA3AF]">
+              {details.genres.map((genre) => genre.name).join(", ")}
             </p>
-
-            <p data-testid="movie-release-date">{year}</p>
           </div>
-
-          <h2
-            data-testid="movie-title"
-            className="text-[#111827] font-[700] text-[18px]"
-          >
-            {movie.title}
-          </h2>
-
-          <div className="w-full flex">
-            <div className="flex w-full gap-2">
-              <Image
-                src="/imdblogo.svg"
-                alt="imdblogo"
-                width={50}
-                height={20}
-              />
-
-              <p>{details.vote_average}</p>
-            </div>
-
-            <div className="flex w-full gap-2 ">
-              <Image
-                src="/rottentomatoes.svg"
-                alt="imdblogo"
-                width={20}
-                height={20}
-              />
-
-              <p>{details.vote_average}</p>
-            </div>
-          </div>
-
-          <p className="text-[#9CA3AF]">
-            {details.genres.map((genre) => genre.name).join(", ")}
-          </p>
-        </div>
+        )
       )}
     </div>
   );

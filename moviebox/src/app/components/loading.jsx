@@ -1,12 +1,19 @@
-// import React from 'react';
-// import { TailSpin } from 'react-loading';
+import React from 'react';
+import { TailSpin } from 'react-loading';
+import ReactLoading from "react-loading";
 
-// const CustomLoading = () => {
-//   return (
-//     <div className="flex items-center justify-center h-screen">
-//       <TailSpin color="#4F46E5" size="80px" />
-//     </div>
-//   );
-// };
+const CustomLoading = () => {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <ReactLoading
+                  type={"spinningBubbles"}
+                  color={"#BE123C"}
+                  height={100}
+                  width={100}
+                  className="m-auto flex w-full"
+                />
+    </div>
+  );
+};
 
-// export default CustomLoading;
+export default CustomLoading;
