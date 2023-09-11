@@ -57,7 +57,7 @@ const Slider = ({handlesearch, showsidebar }) => {
         <Navbar handlesearch={handlesearch} showsidebar={showsidebar}/>
         </div>
 <div className="flex sm:flex-row flex-col w-full justify-between m-auto">
-                <div className="flex w-[404px] flex-col h-full ml-8 justify-center text-white">
+                <div className="flex sm:w-[40%] w-full flex-col h-full sm:pl-8 px-4 justify-center text-white">
                   <h1 className="text-4xl block align-baseline justify-start font-bold mb-4">{movie.title}</h1>
                   <p className="mb-8">{movie.overview}</p>
                   <button className="rounded-[6px] flex items-center justify-center w-fit p-2 bg-[#BE123C]">
