@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 
 const CustomLoading = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex w-full items-center justify-center h-screen">
       <ReactLoading
                   type={"spinningBubbles"}
                   color={"#BE123C"}

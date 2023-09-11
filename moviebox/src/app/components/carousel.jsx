@@ -53,7 +53,7 @@ const Slider = ({handlesearch, showsidebar }) => {
                 style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1280${movie.backdrop_path})` }}
               >
                 <div className="w-full m-auto h-full justify-between flex flex-col bg-opacity-70 bg-black z-50 ">
-      <div className="sticky w-full z-50 top-0">
+      <div className="sticky w-full top-0">
         <Navbar handlesearch={handlesearch} showsidebar={showsidebar}/>
         </div>
 <div className="flex sm:flex-row flex-col w-full justify-between m-auto">

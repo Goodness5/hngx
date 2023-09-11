@@ -13,19 +13,22 @@ const Navbar = ({ handlesearch, showsidebar }) => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    showsidebar(true)
+    showsidebar(!menuOpen)
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     handlesearch(searchQuery);
   };
   return (
-    <nav className="p-5">
+    <nav className="p-5 flex">
       <div className="container mx-auto flex justify-between items-center">
+        <div className="flex items-center justify-center align-middle gap-2">
+
         <Image className="w-10 h-10" src="/logo.svg" width={40} height={40} alt="Logo" />
         <h1 className="text-white text-2xl font-bold ml-3">MovieBox</h1>
+        </div>
 
-        {/* Sidebar */}
+        
         <div className={`lg:flex hidden items-center border-2 border-white rounded-[6px] w-[40%] px-2 text-white`}>
           <input
             type="text"

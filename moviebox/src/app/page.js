@@ -70,12 +70,15 @@ const HomePage = () => {
 
   const showsidebar = (value) =>{
     setsidebar(value)
+    console.log(value)
   }
   
 
   return (
     <div className="flex flex-col w-full">
-      {sidebar && <Sidebar handlesearch={handlesearch} showsidebar={showsidebar} />}
+     {sidebar && <Sidebar handlesearch={handlesearch} showsidebar={showsidebar} />}
+     <div className="relative w-full">
+      </div> 
       <div className="w-full  flex h-fit mb-3">
         <Slider handlesearch={handlesearch} showsidebar={showsidebar} />
       </div>
