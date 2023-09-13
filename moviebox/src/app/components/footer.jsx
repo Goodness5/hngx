@@ -20,7 +20,7 @@ const Footer = () => {
                 </Link>
         </div>
 
-        <div className="flex justify-center items-center p-3">
+        <div className="flex justify-center items-center p-3 gap-8">
             <Link href='#'>
                 Conditions of Use
             </Link>

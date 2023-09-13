@@ -4,6 +4,7 @@ import Image from "next/image";
 import Sidebar from "./components/mobilenav";
 import FeaturedMovie from "./components/featuredmovie";
 import Slider from "./components/carousel";
+import Footer from "./components/footer";
 
 const HomePage = () => {
   const [topMovies, setTopMovies] = useState([]);
@@ -98,6 +99,9 @@ const HomePage = () => {
       </div>
         <FeaturedMovie movies={topTen} loading={loading} text={text} />
       </div>
+       <div className="flex justify-end">
+          <Footer />
+        </div>
     </div>
   );
 };

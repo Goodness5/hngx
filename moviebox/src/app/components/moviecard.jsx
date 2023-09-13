@@ -1,7 +1,9 @@
+"use client"
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import CustomLoading from "./loading";
+import Link from "next/link";
 
 const MovieCard = ({ movie, loading }) => {
   const [details, setDetails] = useState(null);
@@ -48,7 +50,8 @@ const MovieCard = ({ movie, loading }) => {
   const year = new Date(movie.release_date).getFullYear();
 
   return (
-    <div className=" w-full">
+    <div className=" w-full" data-testid="movie-card">
+       <Link href={`/movies/${encodeURIComponent(movie.id)}`}>
       {loading ? (
         <CustomLoading />
       ) : (
@@ -84,7 +87,7 @@ const MovieCard = ({ movie, loading }) => {
                   : "N/A"}
               </p>
 
-              <p data-testid="movie-release-date">{year}</p>
+              <p data-testid="movie-release-date">{year}</p> 
             </div>
 
             <h2
@@ -94,7 +97,7 @@ const MovieCard = ({ movie, loading }) => {
               {movie.title}
             </h2>
 
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between md:gap-16">
               <div className="flex w-full gap-2">
                 <Image
                   src="/imdblogo.svg"
@@ -126,16 +129,18 @@ const MovieCard = ({ movie, loading }) => {
                   height={20}
                 />
 
-                <p>{rottenTomatoesRating + '%' || "N/A"}</p>
+                <p>{rottenTomatoesRating || "N/A"}</p>
               </div>
             </div>
 
             <p className="text-[#9CA3AF]">
               {details.genres.map((genre) => genre.name).join(", ")}
             </p>
+              <p data-testid="movie-release-date">{movie.release_date}</p>
           </div>
         )
       )}
+      </Link>
     </div>
   );
 };

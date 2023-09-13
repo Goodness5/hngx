@@ -60,10 +60,12 @@ const Slider = ({handlesearch, showsidebar }) => {
                 <div className="flex sm:w-[40%] w-full flex-col h-full sm:pl-8 px-4 justify-center text-white">
                   <h1 className="text-4xl block align-baseline justify-start font-bold mb-4">{movie.title}</h1>
                   <p className="mb-8">{movie.overview}</p>
+                  <a href={`http://m.imdb.com/title/${movie.imdb_id}/videogallery`} className="">
                   <button className="rounded-[6px] flex items-center justify-center w-fit p-2 bg-[#BE123C]">
                     <Image src='/Play.svg' alt='icon' width={30} height={30} />
-                    Watch Now
+                    Watch Trailer
                   </button>
+                  </a>
                 </div>
         <div className="sm:w-fit w-full sm:flex-col sm:gap-0 gap-8 sm:mt-0 mt-8  flex justify-center pr-8 text-right items-end text-white">
           {[1, 2, 3, 4, 5].map((index) => (

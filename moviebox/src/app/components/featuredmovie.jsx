@@ -23,6 +23,7 @@ const FeaturedMovie = ({ movies, loading, text }) => {
               key={movie.id}
             movie={movie}
             loading={loading}
+            data-testid="movie-card"
             
             />
           ))

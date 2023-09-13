@@ -29,7 +29,7 @@ const Navbar = ({ handlesearch, showsidebar }) => {
         </div>
 
         
-        <div className={`lg:flex hidden items-center border-2 border-white rounded-[6px] w-[40%] px-2 text-white`}>
+        <div className={`sm:flex hidden items-center border-2 border-white rounded-[6px] w-[40%] px-2 text-white`}>
           <input
             type="text"
             value={searchQuery}
