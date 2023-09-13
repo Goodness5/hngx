@@ -127,14 +127,14 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
   const formattedRuntime = formatRuntime(runtime);
 
   return (
-    <div className="w-full  bottom-0 h-fit flex gap-4 ">
+    <div className="w-full  bottom-0 h-fit flex gap-4 pb-8">
       {sidebar && 
-      <div className="sm:w-[20%] bg-white fixed sm:sticky rounded-tr-[45px] border h-full top-0 bottom-0 rounded-br-[45px]">
+      <div className="sm:w-[20%] bg-white fixed sm:sticky rounded-tr-[45px] z-[100] border h-full top-0 bottom-0 rounded-br-[45px]">
         <Sidepane showsidebar={showsidebar} />
       </div>
 }
       <div className="flex-col flex w-full  sm:px-8 p-2 sm:py-4">
-      <div className="sm:hidden mb-1 sticky top-0 p-2 rounded-md bg-[#00000060]">
+      <div className="sm:hidden mb-1 sticky top-0 p-2 z-[90] rounded-md bg-[#00000060]">
         <Navbar showsidebar={showsidebar} />
       </div>
         <div className="flex flex-col items-center w-full">

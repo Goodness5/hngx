@@ -14,7 +14,7 @@ const Sidepane = ({showsidebar}) => {
   return (
     <div 
     
-    className={`transform ${showsidebar ? 'translate-x-0' : 'translate-x-full'} transition-transform ease-in-out duration-300 w-full h-full py-8 sticky top-0 gap-16 flex flex-col`}>
+    className={`transform ${showsidebar ? 'translate-x-0' : 'translate-x-full'} z-[100] transition-transform ease-in-out duration-300 w-full h-full py-8 sticky top-0 gap-16 flex flex-col`}>
        <div className="flex sm:hidden justify-end p-4 w-full items-end">
         
         <button
