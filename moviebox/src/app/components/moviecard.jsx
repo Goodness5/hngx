@@ -9,6 +9,11 @@ const MovieCard = ({ movie, loading }) => {
   const [details, setDetails] = useState(null);
 
   const [imageError, setImageError] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   const handleImageError = () => {
     setImageError(true);
@@ -50,7 +55,7 @@ const MovieCard = ({ movie, loading }) => {
   const year = new Date(movie.release_date).getFullYear();
 
   return (
-    <div className=" w-full" data-testid="movie-card">
+    <div className=" w-full relative" data-testid="movie-card">
        <Link href={`/movies/${encodeURIComponent(movie.id)}`}>
       {loading ? (
         <CustomLoading />
@@ -77,6 +82,25 @@ const MovieCard = ({ movie, loading }) => {
               />
             )}
 
+{isFavorite ? (
+      <Image
+        src="/favoritemarked.svg"
+        alt={`${movie.title}`}
+        width={40}
+        height={40}
+        className="absolute right-3 top-3 cursor-pointer"
+        onClick={handleToggleFavorite}
+      />
+    ) : (
+      <Image
+        src="/favorite.svg"
+        alt={`${movie.title}`}
+        width={40}
+        height={40}
+        className="absolute right-3 top-3 cursor-pointer"
+        onClick={handleToggleFavorite}
+      />
+    )}
             <div className="flex text-[#9CA3AF] gap-2">
               <p>
                 {details.production_countries &&

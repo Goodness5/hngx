@@ -3,12 +3,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const Sidepane = () => {
+const Sidepane = ({showsidebar}) => {
   const pathName = usePathname();
   const activeTab = "border-r-[6px] border-[#BE123C]";
 
+
+  const close = () =>{
+    showsidebar(false)
+  }
   return (
-    <div className="w-full h-full py-8 sticky top-0 gap-16 flex flex-col">
+    <div 
+    
+    className={`transform ${showsidebar ? 'translate-x-0' : 'translate-x-full'} transition-transform ease-in-out duration-300 w-full h-full py-8 sticky top-0 gap-16 flex flex-col`}>
+       <div className="flex sm:hidden justify-end p-4 w-full items-end">
+        
+        <button
+          className="text-gray-600  hover:text-gray-800 transition"
+          onClick={close}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
       <div className="flex items-center justify-center align-middle gap-2 ">
         <Image
           className="w-10 h-10"

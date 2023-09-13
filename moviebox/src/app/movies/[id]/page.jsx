@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Sidepane from "../components/sidepane";
 import Image from "next/image";
+import Navbar from "../components/navbar";
+import Rating from 'react-rating';
+import { FaStar } from 'react-icons/fa';
 
 const MoviePage = ({ params }) => {
   const id = params.id;
@@ -9,6 +12,36 @@ const MoviePage = ({ params }) => {
   const [movieCredits, setMovieCredits] = useState(null);
   const [topRatedPosition, setTopRatedPosition] = useState(null);
   const [randomMovies, setRandomMovies] = useState([]);
+  const [sidebar, setsidebar] = useState(true)
+  const [rating, setRating] = useState(2);
+
+
+   useEffect(() => {
+    const handleResize = () => {
+      setsidebar(window.innerWidth > 768); 
+    };
+
+    // Set the initial state
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when component is unmounted
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleRatingChange = (newRating) => {
+    if (newRating == 1) {
+      // If the user clicked on the same star, unrate it
+      setRating(0);
+    } else {
+      // Otherwise, set the new rating
+      setRating(newRating);
+    }
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -39,6 +72,8 @@ const MoviePage = ({ params }) => {
       const shuffled = arr.sort(() => 0.5 - Math.random());
       return shuffled.slice(0, num);
     }
+
+    
     const fetchTopRatedMovies = async () => {
       try {
         const response = await fetch(
@@ -81,15 +116,24 @@ const MoviePage = ({ params }) => {
     return count.toString();
   };
 
+  const showsidebar = (value) =>{
+    setsidebar(value)
+    console.log(value)
+  }
   const runtime = movieDetails.runtime;
   const formattedRuntime = formatRuntime(runtime);
 
   return (
     <div className="w-full  bottom-0 h-fit flex gap-4 ">
-      <div className="w-[20%] hidden sm:block rounded-tr-[45px] border h-full sticky top-0 bottom-0 rounded-br-[45px]">
-        <Sidepane />
+      {sidebar && 
+      <div className="sm:w-[20%] bg-white fixed sm:sticky rounded-tr-[45px] border h-full top-0 bottom-0 rounded-br-[45px]">
+        <Sidepane showsidebar={showsidebar} />
       </div>
-      <div className="flex-col flex w-full  px-8 py-4">
+}
+      <div className="flex-col flex w-full  sm:px-8 p-2 sm:py-4">
+      <div className="sm:hidden mb-1 sticky top-0 p-2 rounded-md bg-[#00000060]">
+        <Navbar showsidebar={showsidebar} />
+      </div>
         <div className="flex flex-col items-center w-full">
           <a
             href={imdbGalleryLink}
@@ -116,33 +160,60 @@ const MoviePage = ({ params }) => {
           </a>
         </div>
 
-        <div className="w-full text-[#404040] font-[500] text-[1.2em] flex flex-col p-2 gap-3 mt-8">
-            <div className="w-full flex gap-4 justify-between items-center text-center">
-              <div className="flex gap-2 justify-between items-center text-center align-middle">
+        <div className="w-full text-[#404040] font-[500] text-[1.2em] sm:flex-col flex flex-col p-2 gap-3 mt-8">
+            <div className="w-full sm:flex-row flex-col flex gap-4 justify-between sm:items-center sm:text-center">
+              <div className="sm:flex-row gap-4 flex flex-col w-full sm:gap-2 sm:items-center sm:text-center justify-start items-start text-start sm:align-middle">
 
-              <h1 className="text-[1.1em] font-[500]">
+              <h1 className="text-[1.1em] sm:w-fit w-full gap-2 flex-col sm:flex-row font-[500] flex">
                 {movieDetails.title}
+                <span className="flex w-full  gap-4 sm:hidden">
+                  
+                {movieDetails.genres.map((genre) => (
+                <p
+                  key={genre.id}
+                  className="rounded-full px-3 sm:hidden border text-[#B91C1C] text-[0.9em] items-center text-center p-1 w-fit h-fit border-[#F8E7EB]"
+                >
+                  {genre.name}
+                </p>
+              ))}
+                </span>
+
+                <span className="font-bold w-fit  text-2xl hidden sm:block">&#8226;</span>
               </h1>
-                <span className="font-bold text-2xl">&#8226;</span>
-              <p className="text-[1.1em] font-[500]">
+              <span className="flex w-full sm:w-fit sm:gap-2 items-center text-center sm:justify-center justify-between">
+
+              <p className="text-[1.1em] font-[500] flex gap-2">
+                {year} <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
-                {year} <span className="font-bold text-2xl">&#8226;</span>
-              <p className="text-[1.1em] font-[500]">
+              <p className="text-[1.1em] font-[500] flex gap-2">
+                PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
-                PG-<span className="font-bold text-2xl"> &#8226;</span>
               <p className="text-[1.1em] font-[500]">{formattedRuntime}</p>
+              </span>
 
               {movieDetails.genres.map((genre) => (
                 <p
                   key={genre.id}
-                  className="rounded-full px-3 border text-[#B91C1C] text-[0.9em] items-center text-center p-1 w-fit h-fit border-[#F8E7EB]"
+                  className="rounded-full hidden sm:flex px-3 border text-[#B91C1C] text-[0.9em] items-center text-center p-1 w-fit h-fit border-[#F8E7EB]"
                 >
                   {genre.name}
                 </p>
               ))}
               </div>
-              <div className="rating flex gap-2 text-[#666666] items-center align-middle justify-center">
-            <Image src='/Star.svg' alt="icon" width={30} height={30} /> 
+
+
+              <div className="rating sm:w-[40%] flex gap-2 text-[#666666] items-center align-middle justify-center">
+            {/* <Image src='/Star.svg' alt="icon" width={30} height={30} />  */}
+            <div className="flex">
+            <Rating
+        initialRating={rating}
+        stop={3} 
+        emptySymbol={<div style={{ color: '#00000040' }}><FaStar /></div>}
+        fullSymbol={<div style={{ color: 'gold' }}><FaStar /></div>}
+        onChange={handleRatingChange}
+        className="flex"
+      />
+      </div>
             <p className="text-[#66666680]">{movieDetails.vote_average.toFixed(1)}</p>
             <span className="font-[900]">&#124;</span>
             <p className="text-[#666666]">{formatVoteCount(movieDetails.vote_count)}</p>
@@ -151,7 +222,7 @@ const MoviePage = ({ params }) => {
             </div>
 
 
-            <div className="flex gap-6 w-full">
+            <div className="sm:flex-row flex flex-col gap-6 w-full">
           <div className=" w-full flex-col flex gap-4">
 
             <p className="text-[20px]">{movieDetails.overview}</p>
@@ -178,12 +249,17 @@ const MoviePage = ({ params }) => {
             </p>
 
             <div className="flex text-[1em]">
-              <div className="bg-[#B91C1C] w-[50%] flex text-[#fff] rounded-md px-2 py-2">Top rated movie #{topRatedPosition}</div>
-              <div className="border flex justify-between w-full rounded-r-md py-2 px-2">Awards 9 nominations <Image src='/arrowdown.svg' alt="icon" width={30} height={30} /> </div>
+              <div className="border flex text-sm rounded-l-md sm:text-[1em] justify-between w-full rounded-r-md ">
+              <p className="bg-[#B91C1C] w-1/2 sm:w-  sm:py-2 flex text-[#fff] rounded-md">Top rated movie #{topRatedPosition}</p>
+                
+               <p className="flex w-full ml-4  justify-between items-center text-center">
+                 Awards 9 nominations <Image src='/arrowdown.svg' alt="icon" width={30} height={30} /> 
+                </p>
+                 </div>
             </div>
           </div>
 
-          <div className="second w-[60%] p-4">
+          <div className="second w-full sm:w-[60%] sm:p-4 sm:mt-0 mt-10">
            <div className="flex flex-col gap-4">
             <button className="flex bg-[#BE123C] w-full m-auto rounded-lg p-3 text-white items-center justify-center gap-4">
             <Image src='/showtimes.svg' alt="icon" width={30} height={30} /> 
