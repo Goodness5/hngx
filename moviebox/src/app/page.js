@@ -76,7 +76,7 @@ const HomePage = () => {
   
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full min-h-screen relative">
      {sidebar && <Sidebar handlesearch={handlesearch} showsidebar={showsidebar} />}
      <div className="relative w-full">
       </div> 
@@ -99,9 +99,9 @@ const HomePage = () => {
       </div>
         <FeaturedMovie movies={topTen} loading={loading} text={text} />
       </div>
-       <div className="flex justify-end">
-          <Footer />
-        </div>
+      <div className="justify-end flex-grow align-bottom">
+        <Footer />
+      </div>
     </div>
   );
 };
