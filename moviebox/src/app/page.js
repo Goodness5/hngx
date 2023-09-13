@@ -86,7 +86,7 @@ const HomePage = () => {
 
       <div className="w-full flex flex-col">
       <div className="flex w-full justify-between mb-4">
-        <h1 className="font-[700] text-[36px] leading-[48.6px]">
+        <h1 className="font-[700] text-[1.2em]">
           {text}
         </h1>
 

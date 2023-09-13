@@ -167,7 +167,7 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
             <div className="w-full sm:flex-row flex-col flex gap-4 justify-between sm:items-center sm:text-center">
               <div className="sm:flex-row gap-4 flex flex-col w-full sm:gap-2 sm:items-center sm:text-center justify-start items-start text-start sm:align-middle">
 
-              <h1 data-testid='movie-title' className="text-[1.1em] sm:w-fit w-full gap-2 flex-col sm:flex-row font-[500] flex">
+              <h1 data-testid='movie-title' className="text-[1.1em] sm:w-fit w-full gap-2 flex-col sm:flex-row font-[700] flex">
                 {movieDetails.title}
                 <span className="flex w-full  gap-4 sm:hidden">
                   
@@ -185,13 +185,13 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
               </h1>
               <span className="flex w-full sm:w-fit sm:gap-2 items-center text-center sm:justify-center justify-between">
 
-              <p className="text-[1.1em] font-[500] flex gap-2" data-testid='movie-release-date' >
+              <p className="text-[1.1em] font-[700] flex gap-2" data-testid='movie-release-date' >
                 {utcReleaseDate} <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
-              <p className="text-[1.1em] font-[500] flex gap-2">
+              <p className="text-[1.1em] font-[700] flex gap-2">
                 PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
-              <p className="text-[1.1em] font-[500]" data-testid='movie-runtime'>{formattedRuntime}</p>
+              <p className="text-[1.1em] font-[700]" data-testid='movie-runtime'>{formattedRuntime}</p>
               </span>
 
               {movieDetails.genres.map((genre) => (
@@ -205,12 +205,12 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
               </div>
 
 
-              <div className="rating sm:w-[40%] flex gap-2 text-[#666666] items-center align-middle justify-center">
+              <div className="rating flex gap-2 text-[#666666] items-center align-middle justify-center">
             {/* <Image src='/Star.svg' alt="icon" width={30} height={30} />  */}
             <div className="flex">
             <Rating
         initialRating={rating}
-        stop={3} 
+        stop={1} 
         emptySymbol={<div style={{ color: '#00000040' }}><FaStar /></div>}
         fullSymbol={<div style={{ color: 'gold' }}><FaStar /></div>}
         onChange={handleRatingChange}
@@ -228,7 +228,7 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
             <div className="sm:flex-row flex flex-col gap-6 w-full">
           <div className=" w-full flex-col flex gap-4">
 
-            <p className="text-[20px]" data-testid='movie-overview'>{movieDetails.overview}</p>
+            <p className="text-[1em]" data-testid='movie-overview'>{movieDetails.overview}</p>
             <p className="text-[#B91C1C]">
               <span className="text-[#333333]"> Director:{" "}</span>
               {movieCredits.crew
@@ -262,7 +262,7 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
             </div>
           </div>
 
-          <div className="second w-full sm:w-[60%] sm:p-4 sm:mt-0 mt-10">
+          <div className="second w-full sm:w-[60%] sm:p-4 sm:mt-0 mt-10 font-[500]">
            <div className="flex flex-col gap-4">
             <button className="flex bg-[#BE123C] w-full m-auto rounded-lg p-3 text-white items-center justify-center gap-4">
             <Image src='/showtimes.svg' alt="icon" width={30} height={30} /> 

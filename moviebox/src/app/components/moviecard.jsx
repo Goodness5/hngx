@@ -56,7 +56,7 @@ const MovieCard = ({ movie, loading }) => {
 
   return (
     <div className=" w-full relative" data-testid="movie-card">
-       <Link href={`/movies/${encodeURIComponent(movie.id)}`}>
+       <a href={`/movies/${encodeURIComponent(movie.id)}`}>
       {loading ? (
         <CustomLoading />
       ) : (
@@ -164,7 +164,7 @@ const MovieCard = ({ movie, loading }) => {
           </div>
         )
       )}
-      </Link>
+      </a>
     </div>
   );
 };

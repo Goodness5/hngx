@@ -49,7 +49,7 @@ const Sidepane = ({showsidebar}) => {
       </div>
 
       <div className="list w-full flex flex-col">
-        <Link
+        <a
           href="/"
           className={`child flex p-4 items-center w-full  gap-4 ${pathName.includes(
             "/"
@@ -59,8 +59,8 @@ const Sidepane = ({showsidebar}) => {
             <Image src="/homeicon.svg" alt="icon" width={30} height={30} />
             <p className="">Home</p>
           </div>
-        </Link>
-        <Link
+        </a>
+        <a
           href="#"
           className={`child flex p-4 items-center w-full gap-4 ${
             pathName.includes("movies") ? `${activeTab} bg-[#FFE4E6]` : ""
@@ -70,8 +70,8 @@ const Sidepane = ({showsidebar}) => {
             <Image src="/movieicon.svg" alt="icon" width={30} height={30} />
             <p className="">Movies</p>
           </div>
-        </Link>
-        <Link
+        </a>
+        <a
           href="#"
           className={`child flex p-4 items-center w-full gap-4 ${
             pathName.includes("tv") ? `${activeTab} bg-[#FFE4E6]` : ""
@@ -81,8 +81,8 @@ const Sidepane = ({showsidebar}) => {
             <Image src="/tvicon.svg" alt="icon" width={30} height={30} />
             <p className="">TV Series</p>
           </div>
-        </Link>
-        <Link
+        </a>
+        <a
           href="#"
           className={`child flex p-4 items-center w-full gap-4 ${
             pathName.includes("upcoming") ? `${activeTab} bg-[#FFE4E6]` : ""
@@ -92,7 +92,7 @@ const Sidepane = ({showsidebar}) => {
             <Image src="/upcomingicon.svg" alt="icon" width={30} height={30} />
             <p className="">Upcoming</p>
           </div>
-        </Link>
+        </a>
       </div>
 
       <div className="border rounded-[20px] border-[#BE123C] flex flex-col gap-4 items-center justify-center  py-4 w-[80%] mt-4 m-auto">
