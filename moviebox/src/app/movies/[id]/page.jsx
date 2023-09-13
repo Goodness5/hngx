@@ -102,7 +102,10 @@ const MoviePage = ({ params }) => {
 
   const imdbTitle = movieDetails.imdb_id;
   const imdbGalleryLink = `http://m.imdb.com/title/${imdbTitle}/videogallery`;
-  const year = new Date(movieDetails.release_date).getFullYear();
+  const releaseDate = new Date(movieDetails.release_date);
+  releaseDate.setMinutes(releaseDate.getMinutes() + releaseDate.getTimezoneOffset());
+const utcReleaseDate = releaseDate.getUTCFullYear();
+
 
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);
@@ -164,7 +167,7 @@ const MoviePage = ({ params }) => {
             <div className="w-full sm:flex-row flex-col flex gap-4 justify-between sm:items-center sm:text-center">
               <div className="sm:flex-row gap-4 flex flex-col w-full sm:gap-2 sm:items-center sm:text-center justify-start items-start text-start sm:align-middle">
 
-              <h1 className="text-[1.1em] sm:w-fit w-full gap-2 flex-col sm:flex-row font-[500] flex">
+              <h1 data-testid='movie-title' className="text-[1.1em] sm:w-fit w-full gap-2 flex-col sm:flex-row font-[500] flex">
                 {movieDetails.title}
                 <span className="flex w-full  gap-4 sm:hidden">
                   
@@ -182,13 +185,13 @@ const MoviePage = ({ params }) => {
               </h1>
               <span className="flex w-full sm:w-fit sm:gap-2 items-center text-center sm:justify-center justify-between">
 
-              <p className="text-[1.1em] font-[500] flex gap-2">
-                {year} <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
+              <p className="text-[1.1em] font-[500] flex gap-2" data-testid='movie-release-date' >
+                {utcReleaseDate} <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
               <p className="text-[1.1em] font-[500] flex gap-2">
                 PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
-              <p className="text-[1.1em] font-[500]">{formattedRuntime}</p>
+              <p className="text-[1.1em] font-[500]" data-testid='movie-runtime'>{formattedRuntime}</p>
               </span>
 
               {movieDetails.genres.map((genre) => (
@@ -225,7 +228,7 @@ const MoviePage = ({ params }) => {
             <div className="sm:flex-row flex flex-col gap-6 w-full">
           <div className=" w-full flex-col flex gap-4">
 
-            <p className="text-[20px]">{movieDetails.overview}</p>
+            <p className="text-[20px]" data-testid='movie-overview'>{movieDetails.overview}</p>
             <p className="text-[#B91C1C]">
               <span className="text-[#333333]"> Director:{" "}</span>
               {movieCredits.crew
