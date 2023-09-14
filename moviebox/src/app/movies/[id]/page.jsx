@@ -253,7 +253,7 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
 
             <div className="flex text-[1em]">
               <div className="border flex text-sm rounded-l-md sm:text-[1em] justify-between w-full rounded-r-md ">
-              <p className="bg-[#B91C1C] w-1/2 sm:w-  sm:py-2 flex text-[#fff] rounded-md">Top rated movie #{topRatedPosition}</p>
+              <p className="bg-[#B91C1C] w-1/2 sm:w-auto  sm:py-2 flex text-[#fff] p-2 rounded-md">Top rated movie #{topRatedPosition}</p>
                 
                <p className="flex w-full ml-4  justify-between items-center text-center">
                  Awards 9 nominations <Image src='/arrowdown.svg' alt="icon" width={30} height={30} /> 
