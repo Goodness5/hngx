@@ -76,7 +76,7 @@ const HomePage = () => {
   
 
   return (
-    <div className="flex flex-col w-full min-h-screen relative">
+    <div className="flex flex-col w-full min-h-screen relative ">
      {sidebar && <Sidebar handlesearch={handlesearch} showsidebar={showsidebar} />}
      <div className="relative w-full">
       </div> 
@@ -84,9 +84,9 @@ const HomePage = () => {
         <Slider handlesearch={handlesearch} showsidebar={showsidebar} />
       </div>
 
-      <div className="w-full flex flex-col">
-      <div className="flex w-full justify-between mb-4">
-        <h1 className="font-[700] text-[1.2em]">
+      <div className="w-full flex flex-col ">
+      <div className="flex w-full justify-between  px-8">
+        <h1 className="font-[700] text-[1.5em]">
           {text}
         </h1>
 

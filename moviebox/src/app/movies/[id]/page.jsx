@@ -181,16 +181,17 @@ const utcReleaseDate = releaseDate.getUTCFullYear();
               ))}
                 </span>
 
-                <span className="font-bold w-fit  text-2xl hidden sm:block">&#8226;</span>
               </h1>
+                <span className="font-bold w-fit  text-2xl hidden sm:block">&#8226;</span>
               <span className="flex w-full sm:w-fit sm:gap-2 items-center text-center sm:justify-center justify-between">
 
               <p className="text-[1.1em] font-[700] flex gap-2" data-testid='movie-release-date' >
-                {utcReleaseDate} <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
+                {utcReleaseDate} 
               </p>
+                <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               <p className="text-[1.1em] font-[700] flex gap-2">
-                PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               </p>
+                PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               <p className="text-[1.1em] font-[700]" data-testid='movie-runtime'>{formattedRuntime}</p>
               </span>
 
