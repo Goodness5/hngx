@@ -11,7 +11,7 @@ To run this project locally, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/moviebox.git
+   git clone https://github.com/goodness5/hngx.git
    ```
 
 2. Change your working directory to the project folder:
