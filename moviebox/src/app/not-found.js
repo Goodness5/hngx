@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function Custom404() {
   
   return (
-    <div className="flex justify-center flex-col items-center h-screen bg-gray-800 text-white">
+    <div className="flex justify-center w-full flex-col items-center h-screen bg-gray-800 text-white">
 
 <div className="w-full flex items-center justify-center">
 
