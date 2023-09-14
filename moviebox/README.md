@@ -1,6 +1,6 @@
 # MovieBox - Movie Discovery Web Application
 
-![MovieBox Logo](/public/icons/logo.png)
+![MovieBox Logo](./public/logo.svg)
 
 Welcome to MovieBox, a movie discovery web application built with Next.js. MovieBox allows users to search for movies, view movie details, and save their favorite movies.
 
