@@ -14,7 +14,6 @@ To run this project locally, follow these steps:
    git clone https://github.com/your-username/moviebox.git
    ```
 
-
 2. Change your working directory to the project folder:
 
    ```bash
