@@ -107,11 +107,10 @@ const MoviePage = ({ params }) => {
 const utcReleaseDate = releaseDate.getUTCFullYear();
 
 
-  const formatRuntime = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-  };
+const formatRuntime = (minutes) => {
+  return `${minutes}m`;
+};
+
   const formatVoteCount = (count) => {
     if (count >= 1000) {
       return (count / 1000).toFixed(1) + 'k';

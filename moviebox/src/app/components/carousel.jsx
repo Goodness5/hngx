@@ -6,6 +6,8 @@ import CustomLoading from './loading';
 const Slider = ({handlesearch, showsidebar }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [imdbRating, setImdbRating] = useState('N/A');
+  const [rottenTomatoesRating, setRottenTomatoesRating] = useState('N/A');
 
 
   useEffect(() => {
@@ -16,6 +18,19 @@ const Slider = ({handlesearch, showsidebar }) => {
           `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`
         );
         const data = await response.json();
+         // Fetch additional details from OMDB API
+         const omdbResponse = await fetch(
+          `https://www.omdbapi.com/?t=${encodeURIComponent(movie.title)}&apikey=${process.env.OMDB_API_KEY}`
+        );
+        const omdbData = await omdbResponse.json();
+
+        if (omdbData.imdbRating) {
+          setImdbRating(parseFloat(omdbData.imdbRating) * 10);
+        }
+
+        if (omdbData.Ratings && omdbData.Ratings.length > 1 && omdbData.Ratings[1].Value) {
+          setRottenTomatoesRating(omdbData.Ratings[1].Value);
+        }
         setTrendingMovies(data.results);
       } catch (error) {
         console.error("Error fetching trending movies:", error);
@@ -59,6 +74,29 @@ const Slider = ({handlesearch, showsidebar }) => {
 <div className="flex sm:flex-row flex-col w-full justify-between m-auto">
                 <div className="flex sm:w-[40%] w-full flex-col h-full sm:pl-8 px-4 justify-center text-white">
                   <h1 className="text-4xl block align-baseline justify-start font-bold mb-4">{movie.title}</h1>
+                  <div className="w-full flex justify-between md:gap-16">
+              <div className="flex w-full gap-2">
+                <Image
+                  src="/imdblogo.svg"
+                  alt="imdblogo"
+                  width={50}
+                  height={20}
+                />
+
+                <p>{imdbRating + '/100' || "70/100"}</p>
+              </div>
+
+              <div className="flex w-full gap-2 justify-end">
+                <Image
+                  src="/rottentomatoes.svg"
+                  alt="imdblogo"
+                  width={20}
+                  height={20}
+                />
+
+                <p>{rottenTomatoesRating || "78%"}</p>
+              </div>
+            </div>
                   <p className="mb-8">{movie.overview}</p>
                   <a href={`http://m.imdb.com/title/${movie.imdb_id}/videogallery`} className="">
                   <button className="rounded-[6px] flex items-center justify-center w-fit p-2 bg-[#BE123C]">

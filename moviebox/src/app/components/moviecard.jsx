@@ -135,19 +135,7 @@ const MovieCard = ({ movie, loading }) => {
 
               <div className="flex w-full gap-2 justify-end">
                 <Image
-                  src={
-                    loading ? (
-                      <ReactLoading
-                        type={"spinningBubbles"}
-                        color={"#BE123C"}
-                        height={100}
-                        width={100}
-                        className="m-auto flex w-full"
-                      />
-                    ) : (
-                      "/rottentomatoes.svg"
-                    )
-                  }
+                  src="/rottentomatoes.svg"
                   alt="imdblogo"
                   width={20}
                   height={20}
