@@ -56,7 +56,6 @@ const MovieCard = ({ movie, loading }) => {
 
   return (
     <div className=" w-full relative" data-testid="movie-card">
-       <a href={`/movies/${encodeURIComponent(movie.id)}`}>
       {loading ? (
         <CustomLoading />
       ) : (
@@ -83,7 +82,7 @@ const MovieCard = ({ movie, loading }) => {
             )}
 
 {isFavorite ? (
-      <Image
+  <Image
         src="/favoritemarked.svg"
         alt={`${movie.title}`}
         width={40}
@@ -101,6 +100,7 @@ const MovieCard = ({ movie, loading }) => {
         onClick={handleToggleFavorite}
       />
     )}
+      <a href={`/movies/${encodeURIComponent(movie.id)}`}>
             <div className="flex text-[#9CA3AF] gap-2">
               <p>
                 {details.production_countries &&
@@ -149,10 +149,10 @@ const MovieCard = ({ movie, loading }) => {
               {details.genres.map((genre) => genre.name).join(", ")}
             </p>
               <p data-testid="movie-release-date">{movie.release_date}</p>
+      </a>
           </div>
         )
       )}
-      </a>
     </div>
   );
 };

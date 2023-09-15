@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Sidebar from "./components/mobilenav";
@@ -8,11 +8,11 @@ import Footer from "./components/footer";
 
 const HomePage = () => {
   const [topMovies, setTopMovies] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('Featured Movie');
   const [topTen, setTopten] = useState([]);
-  const [sidebar, setsidebar] = useState(false)
+  const [sidebar, setsidebar] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -34,13 +34,12 @@ const HomePage = () => {
         setTopMovies(data.results);
       } catch (error) {
         console.error("Error fetching top movies:", error);
+        setError("Error fetching top movies. Please try again later.");
       }
     };
 
     fetchTopMovies();
   }, []);
-
- 
 
   const handlesearch = async (query) => {
     setLoading(true); // Set loading to true when starting the search
@@ -53,6 +52,7 @@ const HomePage = () => {
       setText('Search results')
     } catch (error) {
       console.error("Error fetching search results:", error);
+      setError("Error fetching search results. Please try again later.");
     } finally {
       const timer = setTimeout(() => {
         setLoading(false);
@@ -97,7 +97,11 @@ const HomePage = () => {
           <Image src="/arrowright.svg" alt="arrow" width={20} height={20} />
         </div>
       </div>
-        <FeaturedMovie movies={topTen} loading={loading} text={text} />
+        {error ? (
+          <div className="text-[#BE123C] text-lg text-center m-auto w-fit mt-8 justify-center rounded-lg border border-[#BE123C] items-center"><p className="m-auto">Error: {error}</p></div>
+        ) : (
+          <FeaturedMovie movies={topTen} loading={loading} text={text} />
+        )}
       </div>
       <div className="justify-end flex-grow align-bottom">
         <Footer />
