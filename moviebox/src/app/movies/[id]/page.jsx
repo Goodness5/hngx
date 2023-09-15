@@ -189,8 +189,9 @@ const formatRuntime = (minutes) => {
               </p>
                 <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               <p className="text-[1.1em] font-[700] flex gap-2">
+              PG-
               </p>
-                PG-<span className="font-bold text-2xl hidden sm:block">&#8226;</span>
+                <span className="font-bold text-2xl hidden sm:block">&#8226;</span>
               <p className="text-[1.1em] font-[700]" data-testid='movie-runtime'>{formattedRuntime}</p>
               </span>
 
