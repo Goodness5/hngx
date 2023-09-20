@@ -77,7 +77,7 @@ const ImageGallery = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : ''}`}>
+      <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-[#08f34b15]'}`}>
         <div {...getRootProps()} className="border-dashed border-2 border-gray-300 p-8 text-center mb-8">
           <input {...getInputProps()} />
           <p>Drag & drop an image here, or click to select one</p>
@@ -103,7 +103,7 @@ const ImageGallery = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className={`p-4 flex h-full rounded shadow ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white'}`}>
+                <div className={`p-4 flex h-full rounded shadow ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#2008f310]'}`}>
                   <DraggableImage
                     image={image}
                     index={index}

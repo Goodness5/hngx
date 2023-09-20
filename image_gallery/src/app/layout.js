@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
       <ThemeProvider attribute="class">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} bg-[#2008f310]`}>{children}</body>
       </ThemeProvider>
       </head>
     </html>

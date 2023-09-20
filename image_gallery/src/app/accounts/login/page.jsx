@@ -65,7 +65,7 @@ const LoginForm = () => {
         setLoading(false)
         console.log(response);
         sessionStorage.setItem("token", response.token);
-        console.log("res:::::", response);
+        
         sessionStorage.setItem("username", response.user.username);
         sessionStorage.setItem("email", response.user.email);
       }
@@ -73,18 +73,18 @@ const LoginForm = () => {
       if (response) {
         const errormsg = response.error;
         setLoading(false)
-        console.log(errormsg, "eroooooorrr");
+        
         if (errormsg.includes("username")) {
-          console.log("setting errror...");
+          
           setErrors({ ...errors, username: errormsg });
         }
         if (errormsg.includes("password")) {
-          console.log("setting errror...");
+          
           setErrors({ ...errors, password: errormsg });
         }
         setLoading(false)
       }
-      setSuccessMessage("");
+      
     } catch (error) {
       console.error(error);
       setSuccessMessage("");
@@ -94,15 +94,19 @@ const LoginForm = () => {
   };
 
   return (
+    <div className="flex flex-col">
+      
+
     <div
       className={`sm:flex-row-reverse flex-col flex w-full justify-between ${
         theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
       }`}
     >
-      <div className="w-[50%] p-8 px-16">
+      <div className="sm:w-[50%] w-full p-8 px-16">
         <div className="flex justify-end w-full">
           <Themetoggler />
         </div>
+        <p className="font-semibold text-lg mb-8">Login to access the Gallery</p>
         <form
           onSubmit={handleSubmit}
           className={`w-full m-auto border gap-8 rounded-lg shadow-md ${
@@ -183,7 +187,7 @@ const LoginForm = () => {
                 /> : 'Login'}
           </button>
           {successMessage && (
-            <div style={{ color: "green" }}>{successMessage}</div>
+            <div className="border border-[#06bb2d] w-fit m-auto  p-2 rounded-lg text-[1.2em] text-green-400">{successMessage}</div>
           )}
 
           <div className="flex mt-4 gap-6 font-semibold">
@@ -200,7 +204,7 @@ const LoginForm = () => {
         </form>
       </div>
       <div
-        className={`img w-full relative min-h-screen ${
+        className={`img w-full relative h-screen ${
           theme === "dark" ? "text-white" : "text-black"
         }`}
       >
@@ -209,6 +213,7 @@ const LoginForm = () => {
           All Your Memories In One Place !
         </p>
       </div>
+    </div>
     </div>
   );
 };

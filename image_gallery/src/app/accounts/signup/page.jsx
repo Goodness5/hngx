@@ -69,12 +69,15 @@ const SignupForm = () => {
         formData.email,
         formData.password
       );
-
-      setSuccessMessage(response.message);
-      setLoading(false)
+      if (response.message) {
+        setSuccessMessage(response.message);
+        setLoading(false)
+        window.location.href = "/accounts/login";
+      }
       console.log(response);
       if (response.error) {
         const errormsg = response.error;
+        console.log('error')
         setLoading(false)
         if (errormsg.includes("Username")) {
           console.log("Username error");
@@ -85,7 +88,7 @@ const SignupForm = () => {
           setErrors({ ...errors, email: "Email is already in use" });
         }
       }
-      setSuccessMessage("");
+      
     } catch (error) {
       console.error(error);
       setLoading(false)
@@ -102,10 +105,11 @@ const SignupForm = () => {
           theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
         }`}
       >
-        <div className="w-[50%] p-8 px-16">
+        <div className="sm:w-[50%] w-full p-8 px-16">
           <div className="flex justify-end w-full">
             <Themetoggler />
           </div>
+          <p className="font-semibold text-xl mb-8">Sign Up In Less Than a Minute</p>
           <form
             onSubmit={handleSubmit}
             className={`w-full m-auto border gap-8 rounded-lg shadow-md ${
@@ -212,7 +216,7 @@ const SignupForm = () => {
                 /> : 'Signup'}
             </button>
             {successMessage && (
-              <div style={{ color: "green" }}>{successMessage}</div>
+              <div className="border border-[#06bb2d] w-fit m-auto  p-2 rounded-lg text-[1.2em] text-green-400">{successMessage}</div>
             )}
           <div className="flex mt-4 gap-6 font-semibold">
             <p className="">Already have an account?</p> <Link href="/accounts/login" className={`${
@@ -222,7 +226,7 @@ const SignupForm = () => {
 
         </div>
         <div
-          className={`img w-full bg-yellow-300 relative min-h-screen ${
+          className={`img w-full relative sm:h-screen h-fit ${
             theme === "dark" ? "text-white" : "text-black"
           }`}
         >
