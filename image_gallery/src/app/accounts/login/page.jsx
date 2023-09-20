@@ -123,6 +123,7 @@ const LoginForm = () => {
             <input
               type="text"
               id="username"
+              placeholder="username:: mentor"
               className={`py-2 px-4 rounded-xl bg-transparent ${
                 theme === "dark"
                   ? "text-white border-[#7e7e7e]"
@@ -153,6 +154,7 @@ const LoginForm = () => {
             </label>
             <input
               type="password"
+              placeholder="1Password"
               id="password"
               value={formData.password}
               className={`py-2 px-4 rounded-xl bg-transparent ${
