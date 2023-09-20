@@ -128,7 +128,7 @@ function ImageGallery() {
           className="p-2 border bg-transparent sm:w-[40%] border-[#808080] rounded-md mb-4"
         />
 
-        <div className="mt-4 w-full font-semibold text-lg text-center">Hold down an image and drag to your desired position</div>
+        <div className="mt-4 w-full font-semibold text-lg mb-8 text-center">Hold down an image and drag to your desired position</div>
               <Droppable droppableId="galleryImages">
                 {(provided) => (
                   <motion.div
