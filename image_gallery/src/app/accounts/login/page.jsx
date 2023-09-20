@@ -2,7 +2,7 @@
 // LoginForm.js
 
 import { useState } from "react";
-import { loginUser } from "../../api/index";
+// import { loginUser } from "../../api/index";
 import Themetoggler from "../../components/themetoggler";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -10,6 +10,26 @@ import ReactLoading from "react-loading";
 
 
 const LoginForm = () => {
+
+  const loginUser = async (username, password) => {
+    const BASE_URL = 'https://ctfapi.onrender.com';
+      const response = await fetch(`${BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+    
+      if (response.ok) {
+        
+      }
+        return response.json();
+      // } else {
+      //   throw new Error('Login failed');
+      // }
+    };
+
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({ username: "", password: "" });
   const { theme, setTheme } = useTheme("dark");
