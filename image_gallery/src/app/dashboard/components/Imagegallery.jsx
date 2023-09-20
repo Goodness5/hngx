@@ -11,7 +11,7 @@ const ImageGallery = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme('');
 
   useEffect(() => {
     setGalleryImages(
@@ -71,7 +71,7 @@ const ImageGallery = () => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileUpload,
     accept: {
-        'image/*': ['.jpeg', '.jpg', '.png', 'svg'],
+        'image/*': ['.jpeg', '.jpg', '.png'],
        },
   });
 
