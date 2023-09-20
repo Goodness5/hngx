@@ -37,10 +37,12 @@ const DraggableImage = ({ image, onTagEdit, onMemoryEdit, id, onDrop, index }) =
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
+      
 
       onDrop(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
+
     }
   });
 
