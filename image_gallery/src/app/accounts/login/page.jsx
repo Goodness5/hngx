@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({ username: "", password: "" });
-  const { theme, setTheme } = useTheme('');
+  const { theme, setTheme } = useTheme('dark');
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -123,7 +123,7 @@ const LoginForm = () => {
             <input
               type="text"
               id="username"
-              placeholder="username:: mentor"
+              placeholder="user@example.com OR mentor"
               className={`py-2 px-4 rounded-xl bg-transparent ${
                 theme === "dark"
                   ? "text-white border-[#7e7e7e]"

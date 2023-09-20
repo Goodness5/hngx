@@ -12,12 +12,12 @@ const inter = Inter({ subsets: ["latin"] });
 // };
 
 export default function RootLayout({ children }) {
-  const { theme, setTheme } = useTheme('');
+  const { theme, setTheme } = useTheme('dark');
   return (
     <html lang="en">
       <head>
       <ThemeProvider attribute="class">
-      <body className={`${inter.className} bg-[#2008f310]`}>{children}</body>
+      <body className={`${inter.className} bg-[#2008f310] w-full flex`}>{children}</body>
       </ThemeProvider>
       </head>
     </html>

@@ -23,7 +23,7 @@ const Navbar = () => {
   const navLinkStyle = `text-${theme === 'dark' ? 'white' : 'black'} m-2`;
 
   return (
-    <nav className={`flex flex-wrap items-center justify-between p-4 ${theme === 'dark' ? '' : ''}`}>
+    <nav className={`flex flex-wrap px-8 rounded-md sticky top-0 items-center justify-between shadow-xl ${theme === 'dark' ? 'bg-inherit' : 'bg-[#dfffe9]'}`}>
       <div className="logo">
         {/* Your Logo */}
       </div>
@@ -35,7 +35,7 @@ const Navbar = () => {
           className={navLinkStyle}>Gallery
         </Link> */}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center ml-4 mr-4">
         {user ? (
           <div className={`${navLinkStyle} cursor-pointer`} onClick={handleLogout}>
             Logout
@@ -45,8 +45,8 @@ const Navbar = () => {
           className={`${theme === 'dark' ? 'text-white' : 'text-black'} m-2`}>Login
           </Link>
         )}
-        <Themetoggler />
       </div>
+        <Themetoggler />
     </nav>
   );
 };

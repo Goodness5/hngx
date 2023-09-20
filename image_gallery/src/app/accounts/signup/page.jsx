@@ -37,7 +37,7 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
-  const { theme, setTheme } = useTheme('');
+  const { theme, setTheme } = useTheme('dark');
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {

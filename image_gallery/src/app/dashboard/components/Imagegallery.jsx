@@ -20,7 +20,7 @@ function ImageGallery() {
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const { theme, setTheme } = useTheme('');
+  const { theme, setTheme } = useTheme('dark');
 
   useEffect(() => {
     setGalleryImages(
@@ -118,15 +118,17 @@ console.log(newImages)
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search by tag"
-          className="p-2 border bg-transparent sm:w-[40%] border-gray-300 rounded-md mb-4"
+          className="p-2 border bg-transparent sm:w-[40%] border-[#808080] rounded-md mb-4"
         />
+
+        <div className="mt-4 w-full font-semibold text-lg text-center">Hold down an image and drag to your desired position</div>
               <Droppable droppableId="galleryImages">
                 {(provided) => (
                   <motion.div
                   
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.2 }}
                     className="grid w-full sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
                     {...provided.droppableProps}
                     ref={provided.innerRef}
