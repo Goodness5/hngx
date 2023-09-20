@@ -21,7 +21,7 @@ useEffect(() => {
         transition={{ duration: 1 }}
         className="text-4xl items-center text-center font-bold mb-4"
       >
-        Welcome to Your Gallery: {username}
+        Welcome to Superman's Gallery: dear {username}
       </motion.h1>
 
       {/* <motion.button
