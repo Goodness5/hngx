@@ -32,7 +32,7 @@ const DraggableImage = ({ id, index, image, onTagEdit, onMemoryEdit }) => {
   };
 
   return (
-    <div   className={`flex flex-col gap-4 items-center justify-center align-middle p-4 rounded-lg shadow-2xl ${
+    <div   className={`flex flex-col gap-4 items-center transition ease-in-out delay-150 duration-500 hover:-translate-y-1 hover:scale-110 justify-center align-middle p-4 rounded-lg shadow-2xl ${
         theme === "dark" ? "bg-gray-800" : ""
       }`} >
       {/* {(provided, snapshot) => ( */}

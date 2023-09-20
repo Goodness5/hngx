@@ -29,17 +29,21 @@ function ImageGallery() {
   }, []);
 
   const handleFileUpload = (acceptedFiles) => {
-    const newImages = acceptedFiles.map((file) => ({
-        id: `${galleryImages.length+1}`,
-      download_url: URL.createObjectURL(file),
-      author: 'User Uploaded',
-      tags: [`userimage${galleryImages.length++}`],
-      memory: 'uploaded image',
-    }));
-console.log(newImages)
-    setGalleryImages((prevImages) => [...prevImages, ...newImages]);
-    galleryImages.push(newImages);
+    setGalleryImages((prevImages) => {
+      const newImages = acceptedFiles.map((file) => ({
+        id: `${prevImages.length + 1}`,  // Use prevImages.length to generate a unique ID
+        download_url: URL.createObjectURL(file),
+        author: 'User Uploaded',
+        tags: [`userimage${prevImages.length + 1}`], // Ensure tags have unique names
+        memory: 'uploaded image',
+      }));
+  
+      console.log(newImages);
+  
+      return [...prevImages, ...newImages]; // Return the updated state
+    });
   };
+  
 
   const handleTagEdit = (imageId, index, updatedTag) => {
     const updatedImages = galleryImages.map((image) => {
@@ -71,7 +75,7 @@ console.log(newImages)
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
-
+    console.log(result)
     const items = Array.from(galleryImages);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -89,10 +93,12 @@ console.log(newImages)
       return clonedCards;
     });
   }, []);
+
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileUpload,
     accept: {
-        'image/*': ['.jpeg', '.jpg', '.png'],
+        'image/*': ['.jpeg', '.jpg', '.png', 'svg'],
        },
   });
 
@@ -109,8 +115,9 @@ console.log(newImages)
             <DragDropContext onDragEnd={handleOnDragEnd}>
             <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-[#e4ffeb15]'}`}>
 
-            <div {...getRootProps()} className="shadow-lg p-3 h-full flex items-center justify-center mb-8 py-16 border-dashed border-2 border-gray-300">
+            <div {...getRootProps()} className="shadow-lg p-3 h-full flex-col flex items-center justify-center mb-8 py-16 border-dashed border-2 border-gray-300">
           <input {...getInputProps()} />
+          <p className="flex-wrap">Add your image here</p>
           <p>Drag & drop an image here, or click to select one</p>
         </div>
         <input
