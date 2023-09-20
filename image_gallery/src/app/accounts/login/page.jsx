@@ -102,7 +102,7 @@ const LoginForm = () => {
         theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
       }`}
     >
-      <div className="sm:w-[50%] w-full p-8 sm:px-16">
+      <div className="sm:w-[60%] w-full p-8 sm:px-16">
         <div className="flex justify-end w-full">
           <Themetoggler />
         </div>
@@ -174,8 +174,8 @@ const LoginForm = () => {
           <button
             type="submit"
             onClick={handleSubmit}
-            className={`bg-[#7c171f] hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl mt-4 ${
-              theme === "dark" ? "border-darkred" : "border-lightred"
+            className={`bg-[#7c171f] hover:bg-red-700 text-white font-bold border py-2 px-4 rounded-xl mt-4 ${
+              theme === "dark" ? "border-[#ff9ca4]" : "border-[#fc3e4e]"
             } border`}
           >
             {loading ?  <ReactLoading
@@ -190,16 +190,10 @@ const LoginForm = () => {
             <div className="border border-[#06bb2d] w-fit m-auto  p-2 rounded-lg text-[1.2em] text-green-400">{successMessage}</div>
           )}
 
-          <div className="flex mt-4 gap-6 font-semibold">
-            <p className="mr-2">Don't have an account?</p>
-            <Link
-              href="/accounts/signup"
-              className={`${
-                theme === "dark" ? "text-[#553cf7]" : "text-[#110c30]"
-              }`}
-            >
-              Sign Up
-            </Link>
+<div className="flex mt-4 gap-6 font-semibold  w-full">
+<p className={`${
+                theme === "dark" ? "text-[#ffffff]" : "text-[#000000]"} w-full gap-4 justify-between flex-wrap`}>Don't have an account? <Link href="/accounts/signup" className={`${
+                theme === "dark" ? "text-[#c4beee]" : "text-[#1d1553]"} font-bold text-lg flex-wrap`}>SignUp</Link></p>
           </div>
         </form>
       </div>

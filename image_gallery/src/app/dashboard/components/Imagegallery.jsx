@@ -1,33 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { useDrag, useDrop, DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {Images} from './images'
+import DraggableImage from './Draggable'
+import { useTheme } from "next-themes";
 import { useDropzone } from 'react-dropzone';
-import {Images} from './images';
-import DraggableImage from './Draggable';
-import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 
-const ImageGallery = () => {
-  const [galleryImages, setGalleryImages] = useState([]);
+
+
+function ImageGallery() {
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const { theme, setTheme } = useTheme('');
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setLoading(false);
+      clearTimeout(delay);
+    }, 3000);
+  }, []);
+
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { theme } = useTheme("");
 
   useEffect(() => {
     setGalleryImages(
       Images.map((image) => ({ ...image, tags: image.tags, memory: image.memory }))
     );
-    setLoading(false);
   }, []);
 
-  const onDrop = React.useCallback((dragIndex, hoverIndex) => {
-    setGalleryImages((prevCards) => {
-      const clonedCards = [...prevCards];
-      const removedItem = clonedCards.splice(dragIndex, 1)[0];
-      clonedCards.splice(hoverIndex, 0, removedItem);
-      return clonedCards;
-    });
-  }, []);
+  const handleFileUpload = (acceptedFiles) => {
+    const newImages = acceptedFiles.map((file) => ({
+        id: `${galleryImages.length+1}`,
+      download_url: URL.createObjectURL(file),
+      author: 'User Uploaded',
+      tags: [`userimage${galleryImages.length++}`],
+      memory: 'uploaded image',
+    }));
+console.log(newImages)
+    setGalleryImages((prevImages) => [...prevImages, ...newImages]);
+    galleryImages.push(newImages);
+  };
 
   const handleTagEdit = (imageId, index, updatedTag) => {
     const updatedImages = galleryImages.map((image) => {
@@ -55,19 +67,28 @@ const ImageGallery = () => {
     setGalleryImages(updatedImages);
   };
 
-  const handleFileUpload = (acceptedFiles) => {
-    const newImages = acceptedFiles.map((file) => ({
-      id: Date.now(),
-      download_url: URL.createObjectURL(file),
-      author: 'User Uploaded',
-      tags: ['userimage'],
-      memory: 'uploaded image',
-    }));
 
-    setGalleryImages((prevImages) => [...prevImages, ...newImages]);
-    galleryImages.push(newImages);
+
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(galleryImages);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setGalleryImages(items);
   };
+  
 
+  const onDrop = React.useCallback((dragIndex, hoverIndex) => {
+    console.log(dragIndex)
+    setGalleryImages((prevCards) => {
+      const clonedCards = [...prevCards];
+      const removedItem = clonedCards.splice(dragIndex, 1)[0];
+      clonedCards.splice(hoverIndex, 0, removedItem);
+      return clonedCards;
+    });
+  }, []);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileUpload,
     accept: {
@@ -76,9 +97,19 @@ const ImageGallery = () => {
   });
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-[#08f34b15]'}`}>
-        <div {...getRootProps()} className="border-dashed border-2 border-gray-300 p-8 text-center mb-8">
+    <>
+      <div>
+        {loading ? (
+          <div className="spinner"></div>
+        ) : (
+          <>
+
+            
+            
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+            <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-[#e4ffeb15]'}`}>
+
+            <div {...getRootProps()} className="shadow-lg p-3 h-full flex items-center justify-center border-dashed border-2 border-gray-300">
           <input {...getInputProps()} />
           <p>Drag & drop an image here, or click to select one</p>
         </div>
@@ -87,37 +118,64 @@ const ImageGallery = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search by tag"
-          className="p-2 border bg-transparent w-[40%] border-gray-300 rounded-md mb-4"
+          className="p-2 border bg-transparent sm:w-[40%] border-gray-300 rounded-md mb-4"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {galleryImages
-            .filter((image) =>
-              image.tags
-                ? image.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-                : ''
-            )
-            .map((image, index) => (
-              <motion.div
-                key={image.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className={`p-4 flex h-full rounded shadow ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-[#2008f310]'}`}>
-                  <DraggableImage
-                    image={image}
+              <Droppable droppableId="galleryImages">
+                {(provided) => (
+                  <motion.div
+                  
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                    className="grid w-full sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                      {galleryImages
+                .filter((image) =>
+                  image ? image.tags
+                    ? image.tags.some((tag) =>
+                        tag.toLowerCase().includes(searchQuery.toLowerCase())
+                      )
+                    : "" : ""
+                )
+                .map((image, index) => (
+                      <Draggable
+                        key={image.id}
+                        draggableId={`${image.id}`}
+                        index={index}
+                        
+                      >
+                        {(provided) => (
+                          <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          className=" galleryImages"
+                          >
+                             <DraggableImage
+                    
+                    id={image.id}
                     index={index}
+                    image={image}
                     onTagEdit={handleTagEdit}
                     onMemoryEdit={handleMemoryEdit}
-                    onDrop={onDrop}
                   />
-                </div>
-              </motion.div>
-            ))}
-        </div>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </motion.div>
+                )}
+              </Droppable>
+              </div>
+            </DragDropContext>
+          </>
+        )}
       </div>
-    </DndProvider>
+    </>
   );
-};
+}
 
 export default ImageGallery;
