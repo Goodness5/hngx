@@ -98,7 +98,7 @@ const SignupForm = () => {
   return (
     <div className="flex flex-col relative h-screen">
       <div
-        className={`flex w-full justify-between ${
+        className={`flex w-full flex-col sm:flex-row justify-between ${
           theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
         }`}
       >

@@ -37,7 +37,7 @@ const Navbar = () => {
       </div>
       <div className="flex items-center">
         {user ? (
-          <div className={navLinkStyle} onClick={handleLogout}>
+          <div className={`${navLinkStyle} cursor-pointer`} onClick={handleLogout}>
             Logout
           </div>
         ) : (

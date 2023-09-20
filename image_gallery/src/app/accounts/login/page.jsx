@@ -95,7 +95,7 @@ const LoginForm = () => {
 
   return (
     <div
-      className={`flex-row-reverse flex w-full justify-between ${
+      className={`sm:flex-row-reverse flex-col flex w-full justify-between ${
         theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
       }`}
     >
