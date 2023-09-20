@@ -19,9 +19,11 @@ useEffect(() => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl items-center text-center font-bold mb-4"
+        className="text-4xl items-center text-center flex flex-col font-bold mb-4"
       >
-        Welcome to Superman's Gallery: dear {username}
+        Welcome to Superman's Gallery: <span className="text-[#5c5b5b] uppercase">
+             {username}
+            </span>
       </motion.h1>
 
       {/* <motion.button

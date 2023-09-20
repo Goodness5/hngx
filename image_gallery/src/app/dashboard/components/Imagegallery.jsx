@@ -20,7 +20,7 @@ function ImageGallery() {
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const { theme } = useTheme("");
+  const { theme, setTheme } = useTheme('');
 
   useEffect(() => {
     setGalleryImages(
@@ -109,7 +109,7 @@ console.log(newImages)
             <DragDropContext onDragEnd={handleOnDragEnd}>
             <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-[#e4ffeb15]'}`}>
 
-            <div {...getRootProps()} className="shadow-lg p-3 h-full flex items-center justify-center border-dashed border-2 border-gray-300">
+            <div {...getRootProps()} className="shadow-lg p-3 h-full flex items-center justify-center mb-8 py-16 border-dashed border-2 border-gray-300">
           <input {...getInputProps()} />
           <p>Drag & drop an image here, or click to select one</p>
         </div>

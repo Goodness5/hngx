@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { useTheme } from "next-themes";
 
 const DraggableImage = ({ id, index, image, onTagEdit, onMemoryEdit }) => {
-  const { theme } = useTheme("");
+    const { theme, setTheme } = useTheme('');
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const handleImageLoad = () => {

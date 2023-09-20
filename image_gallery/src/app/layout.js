@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 // };
 
 export default function RootLayout({ children }) {
-  const { theme, setTheme } = useTheme('dark');
+  const { theme, setTheme } = useTheme('');
   return (
     <html lang="en">
       <head>

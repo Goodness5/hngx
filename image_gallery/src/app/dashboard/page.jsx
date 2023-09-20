@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar'
 import { useTheme } from 'next-themes'
 
 const Page = () => {
-  const { theme, setTheme } = useTheme('dark');
+  const { theme, setTheme } = useTheme('');
   useEffect(() => {
     const userToken = sessionStorage.getItem('token');
 

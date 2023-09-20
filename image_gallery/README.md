@@ -5,30 +5,64 @@ This guide will walk you through the steps to enable HTTPS for your Next.js appl
 ## Prerequisites
 
 1. Node.js and npm must be installed on your machine.
-2. OpenSSL (or `mkcert`) for generating SSL certificates.
 
-## Step 1: Install `http-server`
+   # Image Gallery Documentation
 
-Open your terminal and run the following command to install `http-server` globally on your machine:
+## Stage Three: Drag-and-Drop Image Gallery
 
-```bash
-npm install -g http-server
-```
+### Task Overview
+The objective of this task is to develop a fully functional and responsive image gallery that showcases a collection of images in an aesthetically pleasing manner. Users should be able to log in to the gallery and authenticated users should have the ability to use the drag-and-drop feature, allowing them to effortlessly rearrange images within the gallery.
 
-## Step 2: Generate SSL Certificates
+### Requirements
 
-If you haven't already generated SSL certificates, use OpenSSL or `mkcert` to create them. For example, using OpenSSL:
+#### Simple Authentication
+Users can log in with the following credentials:
+- **Username:** user@example.com
+- **Password:** 1Password
 
-```bash
-openssl req -x509 -newkey rsa:4096 -keyout localhost-key.pem -out localhost-cert.pem -days 365 -nodes -subj "/CN=localhost"
-```
+The authentication form fields have been properly validated, and meaningful error messages have been set up. For the backend, you can utilize solutions like NextAuth, Auth0, Clerk, Firebase, or any other preferred authentication method.
 
-## Step 3: Start `http-server` with HTTPS
+#### Image Display
+The gallery displays a grid layout of images in a visually appealing manner, ensuring consistent spacing and sizing. Each image is accompanied by a tag.
 
-1. Open a new terminal window and navigate to your Next.js project directory.
+#### Loading State
+A loading state is implemented for when images are not ready for display. This can be observed through either a skeleton loader or a loading spinner when the page is loading.
 
-2. Run the following command to start the `http-server` with HTTPS enabled:
+#### Search Functionality
+A search field is provided, allowing users to filter the image list based on the tags associated with the images.
 
+#### Drag-and-Drop
+Users have the ability to drag and drop images within the gallery, providing a seamless and interactive experience.
+
+#### User-friendly Feedback
+Smooth animations and visual cues are integrated to offer feedback during drag-and-drop interactions, enhancing the user experience.
+
+#### Responsive Design
+The gallery is designed to be responsive and functional on various devices, including desktop computers, tablets, and mobile phones.
+
+#### Design Flexibility
+While adhering to the specified requirements, there is creative freedom to design a unique and visually appealing gallery.
+
+### Acceptance Criteria
+
+#### Functional Authentication
+The authentication process is fully functional, allowing users to log in with the provided credentials.
+
+#### Drag-and-Drop Feature
+The drag-and-drop feature is fully implemented, enabling users to rearrange images within the gallery seamlessly.
+
+#### Responsiveness
+The design of the gallery is responsive and adapts smoothly to various screen sizes, including desktops, tablets, and mobile devices.
+
+#### User Experience
+The design emphasizes an intuitive and visually pleasing experience, ensuring smooth navigation and operation without any performance issues.
+
+#### Image Display
+All images are displayed with consistent spacing and sizing, creating a visually cohesive gallery.
+
+---
+
+<!-- # FYI
    ```bash
    http-server -a localhost -p 3000 --ssl --cert localhost-cert.pem --key localhost-key.pem
    ```
@@ -36,12 +70,6 @@ openssl req -x509 -newkey rsa:4096 -keyout localhost-key.pem -out localhost-cert
    - `-a localhost`: Specifies the host to use.
    - `-p 3000`: Specifies the port (you can change it if you prefer a different port).
    - `--ssl`: Enables HTTPS.
-   - `--cert` and `--key`: Specify the paths to your SSL certificate and key files.
+   - `--cert` and `--key`: Specify the paths to your SSL certificate and key files. -->
 
-## Step 4: Access Your Next.js App
 
-Your Next.js app should now be accessible via `https://localhost:3000`.
-
-## Note
-
-- This setup is intended for local development purposes only. When deploying your application to a production environment, you should obtain a valid SSL certificate from a trusted certificate authority.

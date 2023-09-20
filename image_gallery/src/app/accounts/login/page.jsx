@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({ username: "", password: "" });
-  const { theme, setTheme } = useTheme("dark");
+  const { theme, setTheme } = useTheme('');
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false)
 
