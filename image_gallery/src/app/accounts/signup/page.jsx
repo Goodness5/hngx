@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signupUser } from "../../api/index";
+// import { signupUser } from "../../api/index";
 import Themetoggler from '../../components/themetoggler'
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -8,6 +8,24 @@ import ReactLoading from "react-loading";
 
 
 const SignupForm = () => {
+
+  const signupUser = async (username, email, password) => {
+    const BASE_URL = 'https://ctfapi.onrender.com';
+  
+    const response = await fetch(`${BASE_URL}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+  
+    // if (response.ok) {
+      return response.json();
+    // } else {
+    //   throw new Error('Signup failed');
+    // }
+  };
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
