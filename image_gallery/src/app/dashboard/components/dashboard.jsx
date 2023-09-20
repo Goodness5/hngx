@@ -14,17 +14,17 @@ useEffect(() => {
 }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center flex-col">
+    <div className="flex items-center justify-center flex-col mt-8">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-bold mb-4"
+        className="text-4xl items-center text-center font-bold mb-4"
       >
-        Welcome to Your Dashboard {username}
+        Welcome to Your Gallery: {username}
       </motion.h1>
 
-      <motion.button
+      {/* <motion.button
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 2 }}
@@ -40,7 +40,7 @@ useEffect(() => {
       >
         Jump to Image Gallery
       </Link>
-      </motion.button>
+      </motion.button> */}
     </div>
   );
 };

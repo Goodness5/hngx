@@ -17,6 +17,22 @@ export const signupUser = async (username, email, password) => {
     // }
   };
 
+
+  // utils/fetchImages.js
+import axios from 'axios';
+
+const fetchImages = async (category) => {
+  try {
+    const response = await axios.get(`https://picsum.photos/v2/list?category=${category}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching images: ${error}`);
+  }
+};
+
+export default fetchImages;
+
+
   // utils/api.js
 export const loginUser = async (username, password) => {
   const BASE_URL = 'https://ctfapi.onrender.com';

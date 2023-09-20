@@ -6,14 +6,18 @@ import { loginUser } from "../../api/index";
 import Themetoggler from "../../components/themetoggler";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import ReactLoading from "react-loading";
+
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({ username: "", password: "" });
   const { theme, setTheme } = useTheme("dark");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const newErrors = { username: "", password: "" };
@@ -38,6 +42,7 @@ const LoginForm = () => {
 
       if (response.message) {
         window.location.href = "/dashboard";
+        setLoading(false)
         console.log(response);
         sessionStorage.setItem("token", response.token);
         console.log("res:::::", response);
@@ -47,6 +52,7 @@ const LoginForm = () => {
 
       if (response) {
         const errormsg = response.error;
+        setLoading(false)
         console.log(errormsg, "eroooooorrr");
         if (errormsg.includes("username")) {
           console.log("setting errror...");
@@ -56,13 +62,14 @@ const LoginForm = () => {
           console.log("setting errror...");
           setErrors({ ...errors, password: errormsg });
         }
+        setLoading(false)
       }
       setSuccessMessage("");
     } catch (error) {
       console.error(error);
       setSuccessMessage("");
+      setLoading(false)
     }
-
     console.log(errors);
   };
 
@@ -147,7 +154,13 @@ const LoginForm = () => {
               theme === "dark" ? "border-darkred" : "border-lightred"
             } border`}
           >
-            Login
+            {loading ?  <ReactLoading
+                  type={"spinningBubbles"}
+                  color={"#ffffff"}
+                  height={40}
+                  width={40}
+                  className="m-auto flex w-full"
+                /> : 'Login'}
           </button>
           {successMessage && (
             <div style={{ color: "green" }}>{successMessage}</div>

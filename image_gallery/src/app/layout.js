@@ -3,7 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 // import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { ThemeProvider } from 'next-themes';
-
+import { useTheme } from "next-themes";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 // };
 
 export default function RootLayout({ children }) {
+  const { theme, setTheme } = useTheme('dark');
   return (
     <html lang="en">
       <head>

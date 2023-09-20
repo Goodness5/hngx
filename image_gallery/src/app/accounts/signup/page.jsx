@@ -4,8 +4,11 @@ import { signupUser } from "../../api/index";
 import Themetoggler from '../../components/themetoggler'
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import ReactLoading from "react-loading";
+
 
 const SignupForm = () => {
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,6 +23,7 @@ const SignupForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const newErrors = { username: "", email: "", password: "" };
@@ -49,9 +53,11 @@ const SignupForm = () => {
       );
 
       setSuccessMessage(response.message);
+      setLoading(false)
       console.log(response);
       if (response.error) {
         const errormsg = response.error;
+        setLoading(false)
         if (errormsg.includes("Username")) {
           console.log("Username error");
           setErrors({ ...errors, username: errormsg });
@@ -64,6 +70,7 @@ const SignupForm = () => {
       setSuccessMessage("");
     } catch (error) {
       console.error(error);
+      setLoading(false)
       setSuccessMessage("");
     }
 
@@ -178,7 +185,13 @@ const SignupForm = () => {
                 theme === "dark" ? "border-darkred" : "border-lightred"
               } border`}
             >
-              Sign Up
+               {loading ?  <ReactLoading
+                  type={"spinningBubbles"}
+                  color={"#ffffff"}
+                  height={40}
+                  width={40}
+                  className="m-auto flex w-full"
+                /> : 'Signup'}
             </button>
             {successMessage && (
               <div style={{ color: "green" }}>{successMessage}</div>
