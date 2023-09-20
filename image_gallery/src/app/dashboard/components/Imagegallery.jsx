@@ -70,7 +70,9 @@ const ImageGallery = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileUpload,
-    accept: 'image/*',
+    accept: {
+        'image/*': ['.jpeg', '.jpg', '.png', 'svg'],
+       },
   });
 
   return (

@@ -8,7 +8,9 @@ const DraggableImage = ({ image, onTagEdit, onMemoryEdit, id, onDrop, index }) =
   const { theme, setTheme } = useTheme();
 
   const [, drop] = useDrop({
-    accept: "image",
+    accept: {
+        'image/*': ['.jpeg', '.jpg', '.png', 'svg'],
+       },
     hover: (item, monitor) => {
       if (!ref.current) {
         return;
