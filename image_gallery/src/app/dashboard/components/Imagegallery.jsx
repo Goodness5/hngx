@@ -3,7 +3,7 @@ import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { motion } from 'framer-motion';
 import { useDropzone } from 'react-dropzone';
-import Images from './images';
+import {Images} from './images';
 import DraggableImage from './Draggable';
 import { useTheme } from 'next-themes';
 

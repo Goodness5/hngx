@@ -1,4 +1,4 @@
-const Images = [
+export const Images = [
     {
       id: 1,
       author: "John Doe",
@@ -71,5 +71,4 @@ const Images = [
     },
   ];
   
-  export default Images;
   
