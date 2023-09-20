@@ -99,7 +99,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex flex-col relative h-screen">
+    <div className="flex flex-col relative w-full overflow-hidden min-h-screen">
       <div
         className={`flex w-full flex-col sm:flex-row justify-between ${
           theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
@@ -227,17 +227,20 @@ const SignupForm = () => {
 
         </div>
         <div
-          className={`img w-full relative sm:h-screen h-fit ${
-            theme === "dark" ? "text-white" : "text-black"
-          }`}
-        >
-          <img
-            src="/accountsbg.jpeg"
-            alt=""
-            className="w-full h-full bg-cover"
-          />
-         <p className="absolute top-1/2 text-white text-center font-extrabold text-[4em]">All Your Memories In One Place !</p>
-        </div>
+  className={`w-full flex items-center text-center h-screen ${
+    theme === "dark" ? "text-white" : "text-black"
+  }`}
+  style={{
+    backgroundImage: `url('/accountsbg.jpeg')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <p className="m-auto text-white font-extrabold text-center text-[4em]">
+    All Your Memories In One Place !
+  </p>
+</div>
+
       </div>
     </div>
   );

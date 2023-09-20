@@ -94,7 +94,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full ">
       
 
     <div
@@ -102,11 +102,11 @@ const LoginForm = () => {
         theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
       }`}
     >
-      <div className="sm:w-[60%] w-full p-8 sm:px-16">
-        <div className="flex justify-end w-full">
+      <div className="sm:w-[60%] flex flex-col w-full sm:px-16">
+        <div className="flex justify-end w-full px-2">
           <Themetoggler />
         </div>
-        <p className="font-semibold text-lg mb-8">Login to access the Gallery</p>
+        <p className="font-semibold px-2 text-lg mb-8">Login to access the Gallery</p>
         <form
           onSubmit={handleSubmit}
           className={`w-full m-auto border gap-8 rounded-lg shadow-md ${
@@ -200,15 +200,20 @@ const LoginForm = () => {
         </form>
       </div>
       <div
-        className={`img w-full relative h-screen ${
-          theme === "dark" ? "text-white" : "text-black"
-        }`}
-      >
-        <img src="/accountsbg.jpeg" alt="" className="w-full h-full bg-cover" />
-        <p className="absolute top-1/2 text-white font-extrabold text-center text-[4em]">
-          All Your Memories In One Place !
-        </p>
-      </div>
+  className={`img w-full flex relative h-screen ${
+    theme === "dark" ? "text-white" : "text-black"
+  }`}
+  style={{
+    backgroundImage: `url('/accountsbg.jpeg')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <p className="absolute top-1/2 text-white font-extrabold text-center text-[4em]">
+    All Your Memories In One Place !
+  </p>
+</div>
+
     </div>
     </div>
   );

@@ -9,7 +9,7 @@ const Themetoggler = () => {
   };
 
   return (
-    <div>
+    <div className='w-fit'>
         <button onClick={toggleTheme}>
             <img src={theme == 'dark' ? '/toggledark.svg': '/togglelight.svg'} alt="toggle" className="w-16" />
         </button>
