@@ -42,7 +42,7 @@ const LoginForm = () => {
       setLoading(true);
 
       // Use Axios for making the HTTP request
-      const response = await axios.post('http://127.0.0.1:5000/login', {
+      const response = await axios.post('https://ctfapi.onrender.com/login', {
         username: formData.username,
         password: formData.password,
       });

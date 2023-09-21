@@ -66,7 +66,7 @@ const SignupForm = () => {
       setLoading(true);
 
       // Use Axios for making the HTTP request
-      const response = await axios.post('http://127.0.0.1:5000/signup', {
+      const response = await axios.post('https://ctfapi.onrender.com/signup', {
         username: formData.username,
         email: formData.email,
         password: formData.password,
