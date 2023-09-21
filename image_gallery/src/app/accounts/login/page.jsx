@@ -42,7 +42,7 @@ const LoginForm = () => {
       setLoading(true);
 
       // Use Axios for making the HTTP request
-      const response = await axios.post('https://ctfapi.onrender.com/login', {
+      const response = await axios.post('https://hngxendpoint-2w8v.onrender.com/login', {
         username: formData.username,
         password: formData.password,
       });
@@ -121,7 +121,7 @@ const LoginForm = () => {
             <input
               type="text"
               id="username"
-              placeholder="user@example.com OR mentor"
+              placeholder="user@example.com"
               className={`py-2 px-4 rounded-xl bg-transparent ${
                 theme === "dark"
                   ? "text-white border-[#7e7e7e]"
