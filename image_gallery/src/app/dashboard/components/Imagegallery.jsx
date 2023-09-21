@@ -117,8 +117,8 @@ function ImageGallery() {
 
             <div {...getRootProps()} className="shadow-lg p-3 h-full flex-col flex items-center justify-center mb-8 py-16 border-dashed border-2 border-gray-300">
           <input {...getInputProps()} />
-          <p className="flex-wrap">Add your image here</p>
-          <p>Drag & drop an image here, or click to select one</p>
+          <p className="flex-wrap m-auto">Add your image here</p>
+          <p className="flex-wrap m-auto items-center text-center">Drag & drop an image here, or click to select one</p>
         </div>
         <input
           type="text"

@@ -7,28 +7,12 @@ import Themetoggler from "../../components/themetoggler";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import ReactLoading from "react-loading";
+import axios from "axios";
 
 
 const LoginForm = () => {
 
-  const loginUser = async (username, password) => {
-    const BASE_URL = 'https://ctfapi.onrender.com';
-      const response = await fetch(`${BASE_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-    
-      if (response.ok) {
-        
-      }
-        return response.json();
-      // } else {
-      //   throw new Error('Login failed');
-      // }
-    };
+
 
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({ username: "", password: "" });
@@ -37,7 +21,6 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
-    setLoading(true)
     e.preventDefault();
 
     const newErrors = { username: "", password: "" };
@@ -56,53 +39,51 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(formData.username, formData.password);
+      setLoading(true);
 
-      setSuccessMessage(response.message);
+      // Use Axios for making the HTTP request
+      const response = await axios.post('https://ctfapi.onrender.com/login', {
+        username: formData.username,
+        password: formData.password,
+      });
 
-      if (response.message) {
+      setSuccessMessage(response.data.message);
+
+      if (response.data.message) {
         window.location.href = "/dashboard";
-        setLoading(false)
-        console.log(response);
-        sessionStorage.setItem("token", response.token);
-        
-        sessionStorage.setItem("username", response.user.username);
-        sessionStorage.setItem("email", response.user.email);
+        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("username", response.data.user.username);
+        sessionStorage.setItem("email", response.data.user.email);
       }
 
-      if (response) {
-        const errormsg = response.error;
-        setLoading(false)
-        
+      if (response.data.error) {
+        const errormsg = response.data.error;
         if (errormsg.includes("username")) {
-          
           setErrors({ ...errors, username: errormsg });
         }
         if (errormsg.includes("password")) {
-          
           setErrors({ ...errors, password: errormsg });
         }
-        setLoading(false)
       }
-      
+
     } catch (error) {
       console.error(error);
       setSuccessMessage("");
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
-    console.log(errors);
   };
 
   return (
-    <div className="flex flex-col w-full ">
+    <div className="flex flex-col h-full w-full">
       
 
     <div
-      className={`sm:flex-row-reverse flex-col flex w-full justify-between ${
-        theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
-      }`}
+        className={`flex w-full flex-col sm:flex-row gap-8 justify-between ${
+          theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
+        }`}
     >
-      <div className="sm:w-[60%] flex flex-col w-full sm:px-16">
+      <div className="sm:w-[60%] flex flex-col px-8 w-full sm:px-16">
         <div className="flex justify-end w-full px-2">
           <Themetoggler />
         </div>
@@ -110,10 +91,10 @@ const LoginForm = () => {
         <form
           onSubmit={handleSubmit}
           className={`w-full m-auto border gap-8 rounded-lg shadow-md ${
-            theme === "dark" ? "border-darkred" : "border-lightred"
+            theme === "dark" ? "" : ""
           } px-8 py-6 flex flex-col`}
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             <label
               htmlFor="username"
               className={`${theme === "dark" ? "text-white" : "text-black"}`}
@@ -200,7 +181,7 @@ const LoginForm = () => {
         </form>
       </div>
       <div
-  className={`img w-full flex relative h-screen ${
+  className={`w-full flex items-center overflow-hidden text-center h-screen ${
     theme === "dark" ? "text-white" : "text-black"
   }`}
   style={{
@@ -209,7 +190,7 @@ const LoginForm = () => {
     backgroundPosition: 'center',
   }}
 >
-  <p className="absolute top-1/2 text-white font-extrabold text-center text-[4em]">
+  <p className="m-auto text-white font-extrabold text-center text-[4em]">
     All Your Memories In One Place !
   </p>
 </div>

@@ -47,24 +47,28 @@ const SignupForm = () => {
     const newErrors = { username: "", email: "", password: "" };
 
     if (!formData.username) {
+      setLoading(false)
       newErrors.username = "Username is required";
     }
 
     if (!formData.email) {
+      setLoading(false)
       newErrors.email = "Email is required";
     }
 
     if (!formData.password) {
+      setLoading(false)
       newErrors.password = "Password is required";
     }
 
     if (Object.values(newErrors).some((error) => error)) {
       setErrors(newErrors);
+      setLoading(false)
       return;
     }
 
     try {
-      const response = await signupUser(
+      const response =  signupUser(
         formData.username,
         formData.email,
         formData.password
@@ -99,9 +103,9 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex flex-col relative w-full overflow-hidden min-h-screen">
+    <div className="flex flex-col relative w-full  h-full">
       <div
-        className={`flex w-full flex-col sm:flex-row justify-between ${
+        className={`flex w-full h-full flex-col sm:flex-row justify-between ${
           theme === "dark" ? "bg-[#686666]" : "bg-[#fff]"
         }`}
       >

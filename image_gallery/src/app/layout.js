@@ -15,11 +15,16 @@ export default function RootLayout({ children }) {
   const { theme, setTheme } = useTheme('dark');
   return (
     <html lang="en">
-      <head>
       <ThemeProvider attribute="class">
-      <body className={`${inter.className} bg-[#2008f310] w-full flex`}>{children}</body>
-      </ThemeProvider>
+      <head>
       </head>
+      <body className={`${inter.className} bg-[#2008f310] w-full m-auto h-full flex`}>
+        <div className="w-full m-auto h-full">
+
+        {children}
+        </div>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
