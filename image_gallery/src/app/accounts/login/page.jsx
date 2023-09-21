@@ -42,7 +42,7 @@ const LoginForm = () => {
       setLoading(true);
 
       // Use Axios for making the HTTP request
-      const response = await axios.post('https://ctfapi.onrender.com/login', {
+      const response = await axios.post('http://127.0.0.1:5000/login', {
         username: formData.username,
         password: formData.password,
       });
@@ -67,9 +67,26 @@ const LoginForm = () => {
       }
 
     } catch (error) {
-      console.error(error);
-      setSuccessMessage("");
-    } finally {
+      console.error("the error",error);
+      // setLoading(false);
+      if (error.response.data.error) {
+        setLoading(false);
+        const errormsg = error.response.data.error;
+        console.log('caught...',errormsg)
+        if (errormsg.includes("username")) {
+          setLoading(false);
+          setErrors({ ...errors, username: errormsg });
+        }
+        if (errormsg.includes("email")) {
+        setLoading(false);
+          setErrors({ ...errors, username: errormsg });
+        }
+        if (errormsg.includes("password")) {
+          setLoading(false);
+          setErrors({ ...errors, password: errormsg });
+        }
+      }
+    }  finally {
       setLoading(false);
     }
   };

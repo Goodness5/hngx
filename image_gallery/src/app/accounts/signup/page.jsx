@@ -5,27 +5,28 @@ import Themetoggler from '../../components/themetoggler'
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import ReactLoading from "react-loading";
+import axios from "axios";
 
 
 const SignupForm = () => {
 
-  const signupUser = async (username, email, password) => {
-    const BASE_URL = 'https://ctfapi.onrender.com';
+  // const signupUser = async (username, email, password) => {
+  //   const BASE_URL = 'http://127.0.0.1:5000';
   
-    const response = await fetch(`${BASE_URL}/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
+  //   const response = await fetch(`${BASE_URL}/signup`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ username, email, password }),
+  //   });
   
-    // if (response.ok) {
-      return response.json();
-    // } else {
-    //   throw new Error('Signup failed');
-    // }
-  };
+  //   // if (response.ok) {
+  //     return response.json();
+  //   // } else {
+  //   //   throw new Error('Signup failed');
+  //   // }
+  // };
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
@@ -41,66 +42,83 @@ const SignupForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
-    setLoading(true)
     e.preventDefault();
 
     const newErrors = { username: "", email: "", password: "" };
 
     if (!formData.username) {
-      setLoading(false)
       newErrors.username = "Username is required";
     }
 
     if (!formData.email) {
-      setLoading(false)
-      newErrors.email = "Email is required";
+      newErrors.email = "email is required";
     }
-
     if (!formData.password) {
-      setLoading(false)
       newErrors.password = "Password is required";
     }
 
     if (Object.values(newErrors).some((error) => error)) {
       setErrors(newErrors);
-      setLoading(false)
       return;
     }
 
     try {
-      const response =  signupUser(
-        formData.username,
-        formData.email,
-        formData.password
-      );
-      if (response.message) {
-        setSuccessMessage(response.message);
-        setLoading(false)
+      setLoading(true);
+
+      // Use Axios for making the HTTP request
+      const response = await axios.post('http://127.0.0.1:5000/signup', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      console.log('res::::', response)
+      setSuccessMessage(response.data.message);
+
+      if (response.data.message) {
         window.location.href = "/accounts/login";
+     
       }
-      console.log(response);
-      if (response.error) {
-        const errormsg = response.error;
-        console.log('error')
-        setLoading(false)
+
+      if (response.data.error) {
+        const errormsg = response.data.error;
+        if (errormsg.includes("username")) {
+          setErrors({ ...errors, username: errormsg });
+        }
+        if (errormsg.includes("email")) {
+          setErrors({ ...errors, email: errormsg });
+        }
+        if (errormsg.includes("password")) {
+          setErrors({ ...errors, password: errormsg });
+        }
+      }
+
+    } catch (error) {
+      console.error("the error",error);
+      // setLoading(false);
+      if (error.response.data.error) {
+        setLoading(false);
+        const errormsg = error.response.data.error;
+        console.log('caught...',errormsg)
         if (errormsg.includes("Username")) {
-          console.log("Username error");
+          setLoading(false);
           setErrors({ ...errors, username: errormsg });
         }
         if (errormsg.includes("Email")) {
-          console.log("Email error");
-          setErrors({ ...errors, email: "Email is already in use" });
+        setLoading(false);
+          setErrors({ ...errors, email: errormsg });
+        }
+        if (errormsg.includes("Password")) {
+          setLoading(false);
+          setErrors({ ...errors, password: errormsg });
         }
       }
-      
-    } catch (error) {
-      console.error(error);
-      setLoading(false)
-      setSuccessMessage("");
+    } 
+    finally {
+      setLoading(false);
     }
-
-    console.log(errors);
   };
+
 
   return (
     <div className="flex flex-col relative w-full  h-full">

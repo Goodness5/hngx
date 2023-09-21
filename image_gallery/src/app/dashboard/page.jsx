@@ -22,7 +22,7 @@ const Page = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false); // Set loading to false after 3 seconds
-    }, 2000);
+    }, 500);
 
     // Clean up the timeout to avoid memory leaks
     return () => clearTimeout(timeout);

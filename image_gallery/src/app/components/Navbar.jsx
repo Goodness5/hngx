@@ -14,8 +14,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, clearing sessionStorage and redirecting to login page
+  
     sessionStorage.clear();
     window.location.href = '/accounts/login';
   };
@@ -31,9 +30,6 @@ const Navbar = () => {
         <Link href="/"
           className={`${theme === 'dark' ? 'text-white' : 'text-black'} m-2`}>Home
         </Link>
-        {/* <Link href=""
-          className={navLinkStyle}>Gallery
-        </Link> */}
       </div>
       <div className="flex items-center ml-4 mr-4">
         {user ? (
