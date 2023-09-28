@@ -1,23 +1,12 @@
 {
   "name": "helpmeout",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "main": "inject.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
-  },
-  "devDependencies": {
-    "autoprefixer": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
