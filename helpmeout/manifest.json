@@ -1,25 +1,71 @@
 {
     "manifest_version": 2,
-    "name": "Screen Recorder and Screenshot",
+    "name": "Help me out",
     "version": "1.0",
+    "update_url": "http://example.com/path/to/updates.xml",
     "description": "Record your screen and take screenshots.",
-    "icons": {
-      "16": "logo.svg",
-      "48": "logo.svg",
-      "128": "logo.svg"
-    },
+    "permissions": [
+      "desktopCapture",
+      "tabs",
+      "activeTab",
+      "storage",
+      "unlimitedStorage",
+      "contextMenus",
+      "clipboardWrite",
+      "identity",
+      "https://www.google-analytics.com/"
+    ],
     "browser_action": {
       "default_popup": "index.html",
       "default_icon": {
-        "16": "logo.svg",
-        "48": "logo.svg",
-        "128": "logo.svg"
+        "16": "icons/logo.svg",
+        "48": "./icons/logo.svg",
+        "128": "./icons/logo.svg"
       }
     },
-    "permissions": [
-      "activeTab",
-      "desktopCapture",
-      "storage"
-    ]
+    "background": {
+      "scripts": ["popup.js"],
+      "persistent": false
+    },
+    "web_accessible_resources": [
+      "favicon.png",
+      "print.html",
+      "blank.html",
+      "fonts/*",
+      "images/*",
+      "css/*",
+      "js/*",
+      "template/*"
+    ],
+    "commands": {
+      "start_tab_video": {
+        "description": "Start recording tab/page",
+        "suggested_key": {
+          "default": "Ctrl+Shift+7",
+          "mac": "Command+Shift+7"
+        }
+      },
+      "start_desktop_video": {
+        "description": "Start recording desktop",
+        "suggested_key": {
+          "default": "Ctrl+Shift+8",
+          "mac": "Command+Shift+8"
+        }
+      },
+      "stop_video": {
+        "description": "Stop video recording",
+        "suggested_key": {
+          "default": "Ctrl+Shift+9",
+          "mac": "Command+Shift+9"
+        }
+      },
+      "pause_video": {
+        "description": "Pause video recording",
+        "suggested_key": {
+          "default": "Ctrl+Shift+P",
+          "mac": "Command+Shift+P"
+        }
+      }
+    }
   }
   
