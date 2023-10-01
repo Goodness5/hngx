@@ -21,3 +21,17 @@ const copyUrl = ()=>{
         })
 
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+        chrome.storage.local.get(["recordedVideoUrl"], function (result) {
+            const recordedVideoUrl = result.recordedVideoUrl;
+            if (recordedVideoUrl) {
+                // Set the video URL in your HTML element
+                const videoUrlElement = document.getElementById("videoUrl");
+                if (videoUrlElement) {
+                    videoUrlElement.value = recordedVideoUrl;
+                }
+            }
+        });
+    });
+    
