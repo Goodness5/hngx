@@ -1,31 +1,35 @@
-<html>
-  
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-  
-
-    <title>Screen Recording with client 
-          side javascript</title>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="./controls.css">
 </head>
-  
 <body>
-    <div style="float: left">
-        <video class="recording" autoplay muted width="500px" 
-               height="500px"></video>
+    <div class="control-panel">
+        <label for="cameraToggle">Toggle Camera</label>
+        <input type="checkbox" id="cameraToggle" checked>
+        <label for="microphoneToggle">Toggle Microphone</label>
+        <input type="checkbox" id="microphoneToggle" checked>
+        <button id="pauseButton">Pause</button>
+        <button id="resumeButton">Resume</button>
+        <button id="stopButton">Stop</button>
     </div>
-    <button onclick="selectScreen()">Select Screen</button>
-
-    
-  
-        <button class="start-btn">Start Recording</button>
-        <button class="stop-btn">Stop Recording</button>
-        <a href="#" download="output.mp4" 
-        class="download-anc">Download</a>
-    </div>
-        <script>
-            function selectScreen() {
-                chrome.runtime.sendMessage('selected');
-            }
+    <script src="../popup.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('pauseButton').addEventListener('click', function() {
+                chrome.runtime.sendMessage({command: 'pauseRecording'});
+            });
+        
+            document.getElementById('resumeButton').addEventListener('click', function() {
+                chrome.runtime.sendMessage({command: 'resumeRecording'});
+            });
+        
+            document.getElementById('stopButton').addEventListener('click', function() {
+                chrome.runtime.sendMessage({command: 'stopRecording'});
+            });
+        });
         </script>
-    <script src="controls.js"></script>
 </body>
+</html>

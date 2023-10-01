@@ -2,55 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>help me out</title>
+    <title>Help Me Out</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
     <style>
-      .font-sora {
-          font-family: 'Sora', sans-serif;
-          
-      }
-
-      .description{
-        font-size: 14px;
-        font-weight: 400;
-      }
-      .helpme{
-        font-size: 1.5em;
-        color: #120B48;
-        font-weight: bold;
-      }
-
-      html{
-        background-color: white;
-        box-shadow: 2px 2px 2px rgb(#120B48);
-        overflow: scroll;
-        width: 100%;
-        max-width: 1000px;
-        border: 0px;
-        border-radius: 3em;
-        padding: 1em;
-      }
-
-      .border{
-        border-radius: 1em;
-        border-color: #120B48;
-      }
-      .record-btn{
-        background-color: #120B48;
-        color: white;
-        align-items: center;
-        text-align: center;
-        width: 100%;
-
-      }
-  </style>
+        .font-sora {
+            font-family: 'Sora', sans-serif;
+        }
+        .description {
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .helpme {
+            font-size: 1.5em;
+            color: #120B48;
+            font-weight: bold;
+        }
+        html {
+            background-color: white;
+            box-shadow: 2px 2px 2px rgb(#120B48);
+            overflow: scroll;
+            width: 100%;
+            max-width: 1000px;
+            border: 0px;
+            border-radius: 3em;
+            padding: 1em;
+        }
+        .border {
+            border-radius: 1em;
+            border-color: #120B48;
+        }
+        .record-btn {
+            background-color: #120B48;
+            color: white;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="container mx-auto p-4 text-[#120B48] flex flex-col w-fit h-full gap-6">
-
-      <!-- navbar -->
         <nav class="flex justify-between items-center mb-4 align-middle">
             <div class="flex gap-2 text-[#120B48] items-center text-center align-middle">
                 <img src="./icons/logo.svg" class="h-10">
@@ -61,69 +54,57 @@
                 <img src="./icons/close.svg" class="h-8">
             </div>
         </nav>
-
         <div class="description font-sans font-light">
-          This extension helps you record and share help videos with ease.
+            This extension helps you record and share help videos with ease.
         </div>
-
-        <!-- currenttab/fullscreenicons -->
         <div class="flex w-full justify-between items-center align-middle">
-          <div class="flex flex-col m-auto">
-            <img src="./icons/monitor.svg" class="h-8">
-            <p class="">Full Screen</p>
-          </div>
-          <div class="flex flex-col m-auto">
-            <img src="./icons/currenttab.svg" class="h-8">
-            <p class="">Current Tab</p>
-          </div>
-        </div>
-
-        <!-- record and screenshot buttons -->
-        <div class="flex flex-col w-full m-auto justify-center align-middle gap-8">
-
-          <div class="border p-3 flex items-center w-full justify-between m-auto align-middle">
-            <div class="gap-3 flex justify-center align-middle text-center">
-              <img src="./icons/camera.svg" class="h-5 ">
-              <p class="description font-semibold m-auto text-center align-middle justify-center">
-                Camera
-              </p>
+            <div class="flex flex-col m-auto">
+                <img src="./icons/monitor.svg" class="h-8">
+                <p class="">Full Screen</p>
             </div>
-            <label class="switch justify-end">
-                <input type="checkbox" id="cameraToggle">
-                <span class="slider"></span>
-            </label>
-          </div>
-          <div class="border p-3 flex items-center w-full justify-between m-auto align-middle">
-            <div class="gap-3 flex justify-center align-middle text-center">
-              <img src="./icons/microphone.svg" class="h-5">
-              <p class="description font-semibold m-auto text-center align-middle justify-center">
-                Audio
-              </p>
-              </div>
-              <label class="switch justify-end">
-                  <input type="checkbox" id="microphoneToggle">
-                  <span class="slider"></span>
-              </label>
-          </div>
-
-          <button id="recording-toggle" class="border p-4 flex items-center mb-8 m-auto w-full record-btn justify-between m-auto text-center font-semibold flex align-middle">
-            Start Recording
-          </button>
+            <div class="flex flex-col m-auto">
+                <img src="./icons/currenttab.svg" class="h-8">
+                <p class="">Current Tab</p>
+            </div>
         </div>
+        <div class="flex flex-col w-full m-auto justify-center align-middle gap-8">
+            <!-- ... (existing code) ... -->
 
+<div class="border p-3 flex items-center w-full justify-between m-auto align-middle">
+  <div class="gap-3 flex justify-center align-middle text-center">
+      <img src="./icons/camera.svg" class="h-5 ">
+      <p class="description font-semibold m-auto text-center align-middle justify-center">
+          Camera
+      </p>
+  </div>
+  <label class="switch justify-end">
+      <input type="checkbox" id="cameraToggle">
+      <span class="slider"></span>
+  </label>
+</div>
 
+<div class="border p-3 flex items-center w-full justify-between m-auto align-middle">
+  <div class="gap-3 flex justify-center align-middle text-center">
+      <img src="./icons/microphone.svg" class="h-5">
+      <p class="description font-semibold m-auto text-center align-middle justify-center">
+          Audio
+      </p>
+  </div>
+  <label class="switch justify-end">
+      <input type="checkbox" id="microphoneToggle">
+      <span class="slider"></span>
+  </label>
+</div>
+<span id="progress"></span>
 
-         <!-- Control window -->
-         <div id="controls" style="display:none;">
-          <div id="countdown"></div>
-          <button id="pauseButton">Pause</button>
-          <button id="resumeButton">Resume</button>
-          <button id="stopButton">Stop</button>
+<!-- ... (existing code) ... -->
+
+            <button id="startRecording" class="border p-4 flex items-center mb-8 m-auto w-full record-btn justify-between m-auto text-center font-semibold flex align-middle">
+                Start Recording
+            </button>
         </div>
-
-      </div>
-
+      
     </div>
-    <script src="popup.js"></script>
+    <script src="./popup.js"></script>
 </body>
 </html>

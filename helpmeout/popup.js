@@ -1,111 +1,158 @@
-let mediaRecorder;
-let stream;
-let chunks = [];
-let countdownValue = 2;
-let countdownInterval;
-
-const countdownElement = document.getElementById('countdown');
-const controlsElement = document.getElementById('controls');
-const startButton = document.getElementById('recording-toggle');
-const pauseButton = document.getElementById('pauseButton');
-const resumeButton = document.getElementById('resumeButton');
-const stopButton = document.getElementById('stopButton');
-
-
-function startScreenRecording() {
-    window.create({ url: chrome.runtime.getURL('controls/ontrols.html'), width: 250, height: 150 });
-    navigator.mediaDevices.getDisplayMedia({ video: true })
-        .then((s) => {
-            stream = s;
-            const options = {
-                audioBitsPerSecond: 128000,
-                videoBitsPerSecond: 2500000,
-                mimeType: "video/mp4",
-              };
-    
-            mediaRecorder = new MediaRecorder(stream, options)
-    
-            mediaRecorder.ondataavailable = (event) => {
-                
-                if (event.data.size > 0) {
-                    chunks.push(event.data);
-                }
-            }
-    
-            mediaRecorder.onstop = () => {
-                const blob = new Blob(chunks, { type: 'video/webm' });
-    
-                // Save the recording
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'screen-recording.webm';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-    
-                chunks = [];
-            }
-        })
-        .catch((err) => {
-            console.error('Error accessing screen:', err);
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("startRecording")
+    .addEventListener("click", function () {
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.executeScript(tabs[0].id, {
+          code: `
+                ${startScreenRecording}
+                startScreenRecording();
+                `,
         });
+      });
+    });
 
+  // ... (existing code) ...
 
-
-    countdownInterval = setInterval(() => {
-        countdownElement.innerText = countdownValue;
-        if (countdownValue === 0) {
-            clearInterval(countdownInterval);
-            mediaRecorder.start();
+  chrome.runtime.onMessage.addListener(function (
+    message,
+    sender,
+    sendResponse
+  ) {
+    if (message.action === "screenSharingStopped") {
+      // Redirect to the recorded videos page
+      chrome.tabs.create({ url: "recorded_videos.html" }, function (tab) {
+        // Save the recorded video URL in local storage (if available)
+        if (message.videoUrl) {
+          chrome.storage.local.get(["recordedVideos"], function (result) {
+            const recordedVideos = result.recordedVideos || [];
+            recordedVideos.push({ url: message.videoUrl });
+            chrome.storage.local.set({ recordedVideos: recordedVideos });
+          });
         }
-        countdownValue--;
-    }, 1000);
+      });
+    }
+  });
 
-    controlsElement.style.display = 'block';
+  document.getElementById("pauseButton").addEventListener("click", function () {
+    chrome.runtime.sendMessage({ command: "pauseRecording" });
+  });
 
-    pauseButton.addEventListener('click', () => {
-        mediaRecorder.pause();
-        pauseButton.disabled = true;
-        resumeButton.disabled = false;
+  document
+    .getElementById("resumeButton")
+    .addEventListener("click", function () {
+      chrome.runtime.sendMessage({ command: "resumeRecording" });
     });
 
-    resumeButton.addEventListener('click', () => {
-        mediaRecorder.resume();
-        pauseButton.disabled = false;
-        resumeButton.disabled = true;
-    });
+  const videoEnabled = document.getElementById("cameraToggle").checked;
+  const audioEnabled = document.getElementById("microphoneToggle").checked;
+  const stopRecordingButton = document.getElementById("stopButton").checked;
 
-    stopButton.addEventListener('click', () => {
-        stopRecording();
-    });
+  const mediaConstraints = {
+    video: videoEnabled,
+    audio: audioEnabled,
+  };
 
-    startButton.disabled = true;
-}
+  let mediaRecorder;
+  let stream;
 
-function stopRecording() {
-    mediaRecorder.stop();
-    stream.getVideoTracks()[0].stop();
-    clearInterval(countdownInterval);
-}
 
-function takeScreenshot() {
-    chrome.tabs.captureVisibleTab(null, { format: "png" }, (dataUrl) => {
-        const a = document.createElement("a");
-        a.href = dataUrl;
-        a.download = `screenshot_${new Date().getTime()}.png`;
-        a.click();
-    });
-}
 
-document
-    .getElementById("recording-toggle")
-    .addEventListener("click", startScreenRecording);
+  async function startScreenRecording() {
+    
 
-document
-    .getElementById("stopButton")
-    .addEventListener("click", stopRecording);
+    console.log("Starting recording");
 
-document
-    .getElementById("takeScreenshot")
-    .addEventListener("click", takeScreenshot);
+  
+
+    const startRecordingResponse = await fetch(
+      "https://live-recorder.onrender.com/api/start_recording",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        // body: JSON.stringify({
+        //   folder_name: folderName,
+        //   blob_name: blobName,
+        // }),
+    }
+    
+    );
+
+    const response = await startRecordingResponse.json();
+    
+    console.log(response)
+    if (startRecordingResponse.ok) {
+      stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true,
+      });
+
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
+      const chunks = [];
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstart = () => {
+        console.log("mediaRecorder started");
+        chrome.runtime.sendMessage({ action: "createControls" });
+        console.log("message sent");
+      };
+
+      mediaRecorder.onstop = async () => {
+        console.log("mediaRecorder stopped");
+
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const formData = new FormData();
+        const folderName = startRecordingResponse.folder_name;
+        const blobName = startRecordingResponse.blob_name;
+
+        formData.append("data", blob);
+        formData.append("blob_name", blobName);
+        formData.append("folder_name", folderName);
+        formData.append("content_type", "video/webm"); // Change content type if needed
+
+        // const streamRecordingResponse = await fetch(
+        //   "https://live-recorder.onrender.com/api/stream_recording",
+        //   {
+        //     method: "POST",
+        //     body: formData,
+        //   }
+        // );
+
+        // if (streamRecordingResponse.ok) {
+        // const stopRecordingResponse = await fetch(`https://live-recorder.onrender.com/api/stop_recording`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'accept': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         "folder_name": response.folder_name,
+        //         "blob_name": response.blob_name
+        //     })
+        // });
+
+        // if (stopRecordingResponse.ok) {
+          // Redirect to the recorded videos page
+         window.open(url, "recorded_videos_page.html")
+        // } else {
+        //     console.error("Error streaming recording:", streamRecordingResponse);
+        //   }
+        // } else {
+        //   console.error("Error stopping recording:", stopRecordingResponse);
+        // }
+      };
+    } else {
+      console.error("Error starting recording:", startRecordingResponse);
+    }
+  }
+
+ 
+});
