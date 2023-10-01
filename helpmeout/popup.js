@@ -133,11 +133,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         );
     
-                        console.log(stopRecordingResponse);
+                        const stopRecordingresponse = await stopRecordingResponse.json();
+                        console.log(stopRecordingresponse);
                         if (stopRecordingResponse.ok) {
                             // const url = URL.createObjectURL(response.blob_name);
                             // chrome.tabs.create({ url: "recorded_videos.html" }, function (tab)
-                            chrome.runtime.sendMessage({ action: 'screenSharingStopped', videoUrl: stopRecordingResponse.url });
+                            chrome.runtime.sendMessage({ action: 'screenSharingStopped', videoUrl: stopRecordingresponse.url });
                         } else {
                             console.error("Error stopping recording:", stopRecordingResponse);
                         }
