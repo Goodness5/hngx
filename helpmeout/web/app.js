@@ -23,9 +23,10 @@ const copyUrl = ()=>{
 
 document.addEventListener("DOMContentLoaded", function() {
         const params = new URLSearchParams(window.location.search);
-        const videoUrl = params.get("videoUrl");
+        const videourl = params.get("videoUrl");
     
-        if (videoUrl) {
+        if (videourl) {
+                videoUrl.value = videourl;
             // Do something with the video URL
             console.log("Video URL:", videoUrl);
         } else {
