@@ -19,3 +19,17 @@ const copyUrl = ()=>{
         })
 
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+        const params = new URLSearchParams(window.location.search);
+        const videoUrl = params.get("videoUrl");
+    
+        if (videoUrl) {
+            // Do something with the video URL
+            console.log("Video URL:", videoUrl);
+        } else {
+            console.log("Video URL parameter not found.");
+        }
+    });
+    
