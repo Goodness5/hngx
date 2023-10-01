@@ -25,15 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
     if (videourl) {
         videoUrl.value = videourl;
 
-        // Set the video URL as the source of the video element
-        videoElement.src = videourl;
 
-        // Play the video
-        videoElement.play();
-
-        // Do something with the video URL
-        console.log("Video URL:", videourl);
-    } else {
-        console.log("Video URL parameter not found.");
-    }
+        var video = document.getElementById('video');
+        var source = document.createElement('source');
+        
+        source.setAttribute('src', videourl);
+        source.setAttribute('type', 'video/mp4');
+        
+        video.appendChild(source);
+        video.play();
+}
 });
