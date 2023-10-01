@@ -25,7 +25,45 @@ document.addEventListener("DOMContentLoaded", function() {
     if (videourl) {
         videoUrl.value = videourl;
 
-
+        const playButton = document.querySelector('.play-button');
+        playButton.addEventListener('click', function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+    
+        // Add event listener for volume button
+        const volumeButton = document.querySelector('.volume-button');
+        volumeButton.addEventListener('click', function() {
+            if (video.muted) {
+                video.muted = false;
+            } else {
+                video.muted = true;
+            }
+        });
+    
+        // Add event listener for settings button (you can implement your own settings functionality)
+        const settingsButton = document.querySelector('.settings-button');
+        settingsButton.addEventListener('click', function() {
+            // Add your settings functionality here
+        });
+    
+        // Update the time display
+        video.addEventListener('timeupdate', function() {
+            const currentTime = formatTime(video.currentTime);
+            const duration = formatTime(video.duration);
+            const timeDisplay = document.querySelector('.time-display');
+            timeDisplay.textContent = `${currentTime} / ${duration}`;
+        });
+    
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+    
         var video = document.getElementById('video');
         var source = document.createElement('source');
         
