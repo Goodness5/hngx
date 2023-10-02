@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as THREE from 'three';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const HumanAnimation = () => {
@@ -34,34 +34,17 @@ const HumanAnimation = () => {
     controls.enableDamping = true;
     controls.target.set(0, 1, 0);
 
-    let mixer;
-    let modelReady = false;
-
-    // Load our FBX model from the directory
-    const loader = new FBXLoader();
-    loader.load('Walking.fbx', function (object) {
-      // Scale and position the model
-      object.scale.set(0.007, 0.007, 0.007);
-      object.position.set(0, 0, 0);
-
-      // Start the default animation
-      mixer = new THREE.AnimationMixer(object);
-      const action = mixer.clipAction(object.animations[0]);
-      action.play();
-
-      // Add it to the scene
-      scene.add(object);
-
-      modelReady = true;
+    // Load the GLB model
+    const loader = new GLTFLoader();
+    loader.load('../blue-smurf-cat.glb', (gltf) => {
+      gltf.scene.scale.set(0.007, 0.007, 0.007);
+      gltf.scene.position.set(0, 0, 0);
+      scene.add(gltf.scene);
     });
 
     // Add animation routine
-    const clock = new THREE.Clock();
-    function animate() {
+    const animate = () => {
       requestAnimationFrame(animate);
-
-      // Call the animate on the object
-      if (modelReady) mixer.update(clock.getDelta());
 
       renderer.render(scene, camera);
     }
@@ -71,12 +54,10 @@ const HumanAnimation = () => {
     // Cleanup on unmount
     return () => {
       container.removeChild(renderer.domElement);
-      mixer = null;
-      modelReady = false;
     };
   }, []);
 
-  return <div id="canvas" style={{ width: '200px', height: '200px' }} />;
+  return <div id="canvas" style={{ width: '200px', height: '200px', backgroundColor: "transparent" }} />;
 };
 
 export default HumanAnimation;
