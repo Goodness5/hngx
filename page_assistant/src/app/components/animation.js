@@ -8,7 +8,6 @@ const HumanAnimation = () => {
     // Create Scene
     const scene = new THREE.Scene();
     scene.background = null;
-    scene.add(new THREE.AxesHelper(5));
 
     // Add a light
     const light = new THREE.PointLight(0xffffff, 1000);
@@ -21,7 +20,7 @@ const HumanAnimation = () => {
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true,
+      alpha: true, // Set alpha to true for transparent background
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(200, 200);
@@ -57,7 +56,7 @@ const HumanAnimation = () => {
     };
   }, []);
 
-  return <div id="canvas" style={{ width: '200px', height: '200px', backgroundColor: "transparent" }} />;
+  return <div id="canvas" style={{ width: '200px', height: '200px' }} />;
 };
 
 export default HumanAnimation;
