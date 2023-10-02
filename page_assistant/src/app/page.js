@@ -23,7 +23,7 @@ const Home = () => {
   }
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-8 bg-gray-300 min-h-screen">
       <h1 className="text-4xl mb-8 text-center">Welcome to Your On-Page Assistant</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div 
@@ -48,13 +48,15 @@ const Home = () => {
           <h2 className="text-xl mb-4">Element 3</h2>
         </div>
       </div>
-      {explanation && <div className="text-center mt-4 bottom-0 absolute">{explanation}</div>}
+      {explanation && <div className="text-center mt-4 bottom-0 absolute">{explanation}
+      
       {animationVisible && 
         <div className="text-center fixed bottom-4 left-1/2 transform -translate-x-1/2">
           <HumanAnimation />
-          {currentVideo && <video src={currentVideo} autoPlay loop muted />}
+          {currentVideo && <video src={currentVideo} autoPlay loop muted className='w-15px h-15px rounded-full' />}
         </div>
       }
+      </div>}
     </div>
   );
 };
